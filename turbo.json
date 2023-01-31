@@ -13,6 +13,10 @@
       "persistent": true,
       "cache": false
     },
+    "dev:all": {
+      "persistent": true,
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build", "^db:generate"],
       "outputs": [".next/**", ".expo/**"]
@@ -22,6 +26,10 @@
       "cache": false
     },
     "//#clean": {
+      "cache": false
+    },
+    "test": {},
+    "test:watch": {
       "cache": false
     },
     "type-check": {
