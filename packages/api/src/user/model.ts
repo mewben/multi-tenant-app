@@ -1,24 +1,24 @@
-import type { Prisma } from "@prisma/client";
-import { throwError } from "@acme/shared";
+import { type Prisma } from "@acme/db";
+import {
+  throwError,
+  type GlobalReject,
+  type ShouldThrow,
+  type WithContext,
+} from "@acme/shared";
 
 import { BaseModel } from "../base-model";
 import { processDoc, type ProcessDocProps } from "./helpers/process-doc";
 
-const COLLECTION_NAME = "user";
-
-interface FindByEmailProps {
-  email: string;
-  shouldThrow?: boolean;
-}
-
-interface FindByIdProps {
-  id: string;
-  shouldThrow?: boolean;
-}
-
 export class UserModel extends BaseModel {
-  async findByEmail({ email, shouldThrow }: FindByEmailProps) {
-    const found = await this._db[COLLECTION_NAME].findUnique({
+  _collection: Prisma.UserDelegate<GlobalReject>;
+
+  constructor({ ctx }: WithContext) {
+    super({ ctx });
+    this._collection = this._db.user;
+  }
+
+  async findByEmail(email: string, { shouldThrow }: ShouldThrow = {}) {
+    const found = await this._collection.findUnique({
       where: { email },
     });
     if (found) return found;
@@ -26,8 +26,8 @@ export class UserModel extends BaseModel {
     return shouldThrow ? throwError(`tn.error:user.notFound`) : null;
   }
 
-  async findById({ id, shouldThrow }: FindByIdProps) {
-    const found = await this._db[COLLECTION_NAME].findUnique({
+  async findById(id: string, { shouldThrow }: ShouldThrow = {}) {
+    const found = await this._collection.findUnique({
       where: {
         id,
       },
@@ -37,7 +37,7 @@ export class UserModel extends BaseModel {
   }
 
   async insert(data: Prisma.UserUncheckedCreateInput) {
-    return this._db[COLLECTION_NAME].create({ data });
+    return this._collection.create({ data });
   }
 
   async prepareDoc({ input, oldDoc }: ProcessDocProps) {
@@ -45,7 +45,7 @@ export class UserModel extends BaseModel {
   }
 
   async update(id: string, data: Prisma.UserUncheckedUpdateInput) {
-    return this._db[COLLECTION_NAME].update({
+    return this._collection.update({
       where: { id },
       data: { ...data, updatedAt: new Date() },
     });

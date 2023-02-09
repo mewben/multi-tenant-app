@@ -12,10 +12,10 @@ export interface WithContext {
 
 export interface CurrentUser {
   id: string;
-  name: string;
-  email: string;
-  emailVerified: string;
-  image: string;
+  name: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
   profile?: CurrentProfile;
 }
 
@@ -37,3 +37,13 @@ interface CurrentRole {
   title: string;
   isAdmin: boolean;
 }
+
+export interface ShouldThrow {
+  shouldThrow?: boolean;
+}
+
+export type GlobalReject =
+  | Prisma.RejectOnNotFound
+  | Prisma.RejectPerOperation
+  | false
+  | undefined;

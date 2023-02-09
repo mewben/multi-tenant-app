@@ -11,9 +11,9 @@ export const createAccount = async ({ input, ctx }: Props) => {
   const [hashedPassword, salt] = hashPassword(input.password as string);
   delete input.password;
 
-  const model = new AccountModel({ ctx });
-  const doc = await model.prepareDoc({
+  const accountModel = new AccountModel({ ctx });
+  const doc = await accountModel.prepareDoc({
     input: { ...input, hashedPassword, salt },
   });
-  return model.insert(doc);
+  return accountModel.insert(doc);
 };

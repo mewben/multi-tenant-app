@@ -1,11 +1,10 @@
-// import { createAccount } from "@/server/account/helpers/create-account";
-// import { createUser } from "@/server/user/helpers/create-user";
 import { AUTH_PROVIDERS, PROVIDER_TYPES } from "@prisma/client";
 import { pick } from "lodash";
-import type { Context } from "@acme/auth";
+import type { Context } from "next-auth";
 import { prisma } from "@acme/db";
 import { SignupInput, cleanAndValidate, signupSchema } from "@acme/shared";
 
+import { createAccount } from "~/api/account/helpers/create-account";
 import { createUser } from "./create-user";
 
 interface Props {

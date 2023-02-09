@@ -20,7 +20,7 @@ export const processDoc = async ({ input, oldDoc, model }: Props) => {
   if (isInsert && upd.email) {
     // check for duplicate email
     // we explicitly do this to throw our own error message
-    const foundUser = await model.findByEmail({ email: upd.email });
+    const foundUser = await model.findByEmail(upd.email);
     if (foundUser) {
       return throwError(`tn.error:email.duplicate`);
     }

@@ -1,7 +1,6 @@
-import { type User } from "@prisma/client";
+import type { User } from "@acme/db";
 import type { WithContext } from "@acme/shared";
 
-// import { UserModel } from "../model";
 import { UserModel } from "~/api/user/model";
 
 interface Props extends WithContext {
@@ -10,7 +9,7 @@ interface Props extends WithContext {
 
 // this function solely creates the user record
 export const createUser = async ({ input, ctx }: Props) => {
-  const model = new UserModel({ ctx });
-  const doc = await model.prepareDoc({ input });
-  return model.insert(doc);
+  const userModel = new UserModel({ ctx });
+  const doc = await userModel.prepareDoc({ input });
+  return userModel.insert(doc);
 };

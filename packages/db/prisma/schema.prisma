@@ -141,7 +141,7 @@ model Role {
     // ---
     title       String
     // isAdmin check is being able to set a role as isAdmin
-    isAdmin     Boolean?  @default(false)
+    isAdmin     Boolean  @default(false)
     // ---
     workspaceId String    @db.Uuid
     workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)

@@ -37,8 +37,7 @@ export const processDoc = async ({ input, oldDoc, model }: Props) => {
     if (upd.provider === AUTH_PROVIDERS.credentials) {
       // get user
       const userModel = new UserModel({ ctx: model._ctx });
-      const user = (await userModel.findById({
-        id: upd.userId,
+      const user = (await userModel.findById(upd.userId, {
         shouldThrow: true,
       })) as User;
 

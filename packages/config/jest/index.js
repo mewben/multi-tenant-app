@@ -1,5 +1,5 @@
 module.exports = {
-  verbose: true,
+  // verbose: true, // show/hide check marks
   testTimeout: 20000,
   testEnvironment: "node",
   // This runs once before all tests

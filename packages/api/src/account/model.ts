@@ -1,24 +1,33 @@
 import type { AUTH_PROVIDERS, Prisma } from "@acme/db";
-import { throwError } from "@acme/shared";
+import {
+  throwError,
+  type GlobalReject,
+  type ShouldThrow,
+  type WithContext,
+} from "@acme/shared";
 
 import { BaseModel } from "~/api/base-model";
 import { processDoc, type ProcessDocProps } from "./helpers/process-doc";
 
-const COLLECTION_NAME = "account";
-
-interface FindByProviderAndProviderAccountIdProps {
+interface FindByProviderAndProviderAccountIdProps extends ShouldThrow {
   provider: AUTH_PROVIDERS;
   providerAccountId: string;
-  shouldThrow?: boolean;
 }
 
 export class AccountModel extends BaseModel {
+  _collection: Prisma.AccountDelegate<GlobalReject>;
+
+  constructor({ ctx }: WithContext) {
+    super({ ctx });
+    this._collection = this._db.account;
+  }
+
   async findByProviderAndProviderAccountId({
     provider,
     providerAccountId,
     shouldThrow,
   }: FindByProviderAndProviderAccountIdProps) {
-    const found = await this._db[COLLECTION_NAME].findUnique({
+    const found = await this._collection.findUnique({
       where: {
         provider_providerAccountId: { provider, providerAccountId },
       },
@@ -28,7 +37,7 @@ export class AccountModel extends BaseModel {
   }
 
   async insert(data: Prisma.AccountUncheckedCreateInput) {
-    return this._db[COLLECTION_NAME].create({ data });
+    return this._collection.create({ data });
   }
 
   async prepareDoc({ input, oldDoc }: ProcessDocProps) {
