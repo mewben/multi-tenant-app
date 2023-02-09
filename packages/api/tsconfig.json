@@ -1,4 +1,11 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "index.ts", "transformer.ts"]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/api/fixtures": ["./test-fixtures"],
+      "~/api/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "test-fixtures", "index.ts", "transformer.ts"]
 }

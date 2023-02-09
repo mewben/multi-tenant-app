@@ -1,3 +1,3 @@
-export { authOptions } from "./src/auth-options";
+export { getAuthOptions } from "./src/auth-options";
 export { getServerSession } from "./src/get-session";
-export type { Session } from "next-auth";
+export type { Session, Context } from "next-auth";

@@ -6,6 +6,8 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+
+import type { IncomingHttpHeaders } from "http";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
@@ -23,6 +25,7 @@ import { prisma } from "@acme/db";
  */
 type CreateContextOptions = {
   session: Session | null;
+  headers?: IncomingHttpHeaders;
 };
 
 /**
@@ -34,9 +37,10 @@ type CreateContextOptions = {
  * - trpc's `createSSGHelpers` where we don't have req/res
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = (opts: CreateContextOptions) => {
+export const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
+    headers: opts.headers || {},
     prisma,
   };
 };
@@ -54,6 +58,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 
   return createInnerTRPCContext({
     session,
+    headers: req.headers,
   });
 };
 
