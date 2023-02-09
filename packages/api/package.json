@@ -7,7 +7,7 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "lint": "eslint",
+    "lint": "eslint .",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -17,12 +17,12 @@
     "@trpc/client": "^10.9.0",
     "@trpc/server": "^10.9.0",
     "crypto-js": "^4.1.1",
-    "superjson": "1.9.1",
+    "superjson": "1.12.2",
     "zod": "^3.20.2"
   },
   "devDependencies": {
     "@faker-js/faker": "7.6.0",
     "eslint": "^8.32.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   }
 }
