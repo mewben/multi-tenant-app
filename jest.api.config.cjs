@@ -5,6 +5,6 @@ const createJestConfig = nextJest({
   dir: "./apps/nextjs",
 });
 
-const config = require("./packages/config/jest");
+const config = require("./packages/config/jest/api.config.js");
 
 module.exports = createJestConfig(config);
