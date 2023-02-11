@@ -40,8 +40,8 @@ export class WorkspaceModel extends BaseModel {
     const newWorkspace = await this._collection.create({ data });
 
     // hooks
-    await afterInsert(newWorkspace, { ctx: this._ctx });
-    return newWorkspace;
+    const defaultRole = await afterInsert(newWorkspace, { ctx: this._ctx });
+    return { workspace: newWorkspace, role: defaultRole };
   }
 
   async prepareDoc({ input, oldDoc }: ProcessDocProps) {

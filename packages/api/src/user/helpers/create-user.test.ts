@@ -7,7 +7,7 @@ import { createUser } from "./create-user";
 
 describe("user.model.create", () => {
   it("should create a user", async () => {
-    const { ctx } = fixtures.mockCurrentUser();
+    const { ctx } = await fixtures.mockCurrentUser();
     const input = {
       name: faker.name.firstName(),
       email: faker.internet.email(),
@@ -26,7 +26,7 @@ describe("user.model.create", () => {
   });
 
   it("should throw duplicate email", async () => {
-    const { ctx } = fixtures.mockCurrentUser();
+    const { ctx } = await fixtures.mockCurrentUser();
     const email = faker.internet.email();
     await createUser({ input: { email }, ctx });
 

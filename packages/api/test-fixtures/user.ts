@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker";
-import { getCurrentUser } from "@acme/auth";
 import { AUTH_PROVIDERS, prisma } from "@acme/db";
 import {
   getDomainUrl,
@@ -7,6 +6,7 @@ import {
   type SignupInput,
 } from "@acme/shared";
 
+import { getCurrentUser } from "~/api/user/helpers/get-current-user";
 import { signup } from "~/api/user/helpers/signup";
 import { onboard, verify } from "~/api/user/methods";
 import { createSession } from "./mock-current-user";
@@ -22,7 +22,7 @@ export const user = {
     input,
     shouldVerify = true,
     shouldOnboard = true,
-  }: CreateUserProps) => {
+  }: CreateUserProps = {}) => {
     const ctx = {
       prisma,
       session: null,
@@ -57,7 +57,7 @@ export const user = {
       });
 
       if (shouldOnboard) {
-        const session = createSession(
+        const session = await createSession(
           await getCurrentUser({
             userId: user.id,
             ctx,

@@ -10,10 +10,12 @@
 import type { IncomingHttpHeaders } from "http";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { type Session } from "next-auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { getServerSession, type Session } from "@acme/auth";
 import { prisma } from "@acme/db";
+
+import { getServerSession } from "./get-session";
 
 /**
  * 1. CONTEXT

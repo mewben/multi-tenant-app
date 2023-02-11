@@ -9,8 +9,10 @@
     "db:generate": "pnpm with-env prisma generate",
     "db:migrate-dev": "pnpm with-env prisma migrate dev",
     "db:push": "pnpm with-env prisma db push --skip-generate",
+    "db:reset-test": "pnpm with-test-env prisma db push --force-reset --accept-data-loss",
     "dev": "pnpm with-env prisma studio --port 5556",
-    "with-env": "dotenv -e ../../.env --"
+    "with-env": "dotenv -e ../../.env --",
+    "with-test-env": "dotenv -e ../../.env.test.local --"
   },
   "dependencies": {
     "@prisma/client": "^4.10.0"

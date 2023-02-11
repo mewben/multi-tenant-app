@@ -9,9 +9,16 @@
       "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
+    "db:reset-test": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "dev:test": {
+      "dependsOn": ["^db:reset-test"]
     },
     "dev:all": {
       "persistent": true,
@@ -30,6 +37,9 @@
     },
     "test": {},
     "test:watch": {
+      "cache": false
+    },
+    "test:e2e": {
       "cache": false
     },
     "type-check": {

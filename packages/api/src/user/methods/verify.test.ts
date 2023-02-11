@@ -29,16 +29,14 @@ describe("user.verify [credentials]", () => {
     expect(user.emailVerified).toBeNull();
 
     // verify
-    const { caller } = fixtures.mockCurrentUser();
+    const { caller } = await fixtures.mockCurrentUser();
 
     const input: RouterInputs["user"]["verify"] = {
       id: user.id,
       verificationCode: account.verificationCode || "",
     };
     const response = await caller.user.verify(input);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     expect(response?.emailVerified).toBeWithinMinuteAs(new Date());
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     expect(response?.updatedAt).toBeWithinMinuteAs(new Date());
     expect(response?.updatedAt).not.toEqual(response?.createdAt);
   });
@@ -79,7 +77,7 @@ describe("user.verify [credentials]", () => {
         },
       },
     });
-    const { caller } = fixtures.mockCurrentUser();
+    const { caller } = await fixtures.mockCurrentUser();
     await caller.user.verify({
       id: user2.id,
       verificationCode: account2.verificationCode || "",

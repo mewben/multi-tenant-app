@@ -8,8 +8,11 @@ import { createProfile } from "./create-profile";
 describe("profile.model.create", () => {
   it("should create a new profile", async () => {
     const user = await fixtures.user.create({ shouldOnboard: false });
-    const { ctx } = fixtures.mockCurrentUser({ user });
-    const workspace1 = await fixtures.workspace.create({ ctx });
+    const { ctx } = await fixtures.mockCurrentUser({ user });
+    const { workspace: workspace1 } = await fixtures.workspace.create({
+      ctx,
+      shouldCreateProfile: false,
+    });
 
     const role1 = await fixtures.role.create({
       input: { workspaceId: workspace1.id },
@@ -48,5 +51,9 @@ describe("profile.model.create", () => {
       createdBy: response.id,
       updatedBy: response.id,
     });
+  });
+
+  it.skip("should validate input", async () => {
+    // TODO:
   });
 });

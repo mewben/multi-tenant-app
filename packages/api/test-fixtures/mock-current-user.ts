@@ -1,24 +1,19 @@
 import type { IncomingHttpHeaders } from "http";
-import { faker } from "@faker-js/faker";
+import { isUndefined } from "lodash";
 import type { Session } from "next-auth";
-import { getDomainUrl, randomId, type CurrentUser } from "@acme/shared";
+import { getDomainUrl, type CurrentUser } from "@acme/shared";
 
 import { appRouter } from "~/api/root";
 import { createInnerTRPCContext } from "~/api/trpc";
+import { user as userFixture } from "./user";
 
-export const createSession = (user?: Partial<CurrentUser>): Session | null => {
-  if (!user) return null;
+export const createSession = async (
+  userInput?: Partial<CurrentUser>,
+): Promise<Session | null> => {
+  const user = isUndefined(userInput) ? await userFixture.create() : userInput;
 
   return {
-    user: {
-      id: randomId(),
-      name: faker.name.firstName(),
-      email: faker.internet.email(),
-      emailVerified: new Date(),
-      image: "",
-      profile: undefined,
-      ...user,
-    },
+    user,
     expires: new Date(Date.now() + 3600 * 1000 * 24).toISOString(),
   } as Session;
 };
@@ -35,15 +30,18 @@ interface MockCurrentUserProps {
   user?: Partial<CurrentUser>;
   domain?: string;
 }
-export const mockCurrentUser = ({
-  user,
+export const mockCurrentUser = async ({
+  user: userInput,
   domain,
 }: MockCurrentUserProps = {}) => {
-  const currentDomain = user?.profile?.workspace.domain;
+  const currentDomain = userInput?.profile?.workspace.domain;
+  const session = (await createSession(userInput)) as Session;
+
   const ctx = createInnerTRPCContext({
-    session: createSession(user),
-    headers: createHeaders(currentDomain ?? domain),
+    session,
+    headers: createHeaders(domain ?? currentDomain),
   });
+
   const caller = appRouter.createCaller(ctx);
-  return { caller, ctx };
+  return { caller, ctx, user: session.user };
 };

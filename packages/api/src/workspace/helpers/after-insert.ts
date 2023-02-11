@@ -8,11 +8,13 @@ export const afterInsert = async (
   { ctx }: WithContext,
 ) => {
   // create default role
-  await createRole({
+  const role = await createRole({
     input: { title: "Admin", isAdmin: true, workspaceId: newWorkspace.id },
     ctx,
     insertOpts: {
       skipBase: true,
     },
   });
+
+  return role;
 };

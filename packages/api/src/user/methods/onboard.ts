@@ -1,14 +1,7 @@
-import { isEmpty } from "lodash";
-import type { Role } from "@acme/db";
-import {
-  throwError,
-  type OnboardingInput,
-  type WithContext,
-} from "@acme/shared";
+import { type OnboardingInput, type WithContext } from "@acme/shared";
 
 import { createProfile } from "~/api/profile/helpers/create-profile";
-import { RoleModel } from "~/api/role/model";
-import { create as createWorkspace } from "~/api/workspace/methods";
+import { createWorkspace } from "~/api/workspace/helpers/create-workspace";
 
 interface Props extends WithContext {
   input: OnboardingInput;
@@ -19,17 +12,10 @@ export const onboard = async ({ input, ctx }: Props) => {
     ctx.tx = oldTx ?? tx;
 
     // create workspace
-    const workspace = await createWorkspace({
+    const { workspace, role } = await createWorkspace({
       input: { title: input.workspaceTitle, domain: input.workspaceDomain },
       ctx,
     });
-
-    // get default role
-    const roleModel = new RoleModel({ ctx });
-    const roles = await roleModel.listByWorkspace(workspace.id);
-    if (isEmpty(roles)) return throwError("tn.error:role.notFound");
-
-    const role = roles[0] as Role;
 
     // create profile
     await createProfile({

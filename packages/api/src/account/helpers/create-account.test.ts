@@ -5,9 +5,9 @@ import fixtures from "~/api/fixtures";
 import { createUser } from "~/api/user/helpers/create-user";
 import { createAccount } from "./create-account";
 
-describe("account.create", () => {
+describe("account.model.create", () => {
   it("should create an account", async () => {
-    const { ctx } = fixtures.mockCurrentUser();
+    const { ctx } = await fixtures.mockCurrentUser();
 
     const user = await createUser({
       input: {
@@ -35,7 +35,7 @@ describe("account.create", () => {
   });
 
   it("should throw duplicate account", async () => {
-    const { ctx } = fixtures.mockCurrentUser();
+    const { ctx } = await fixtures.mockCurrentUser();
     const user = await createUser({
       input: {
         name: faker.name.firstName(),

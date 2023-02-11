@@ -12,12 +12,14 @@
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push db:generate",
     "dev": "turbo run dev --filter nextjs",
+    "dev:test": "turbo run dev:test --filter nextjs",
     "dev:all": "turbo dev --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint --continue",
     "FIXME:lint": "turbo lint && manypkg check",
     "with-test-env": "dotenv -e ./.env.test.local --",
     "test:api": "pnpm with-test-env jest --config jest.api.config.cjs --watch --detectOpenHandles --forceExit",
+    "test:e2e": "turbo test:e2e",
     "type-check": "turbo type-check"
   },
   "dependencies": {

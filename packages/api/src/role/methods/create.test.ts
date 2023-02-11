@@ -7,8 +7,11 @@ import "jest-date-2";
 
 describe("role.create", () => {
   it("should create a new role [createMethod]", async () => {
-    const { ctx } = fixtures.mockCurrentUser();
-    const workspace1 = await fixtures.workspace.create({ ctx });
+    const { ctx } = await fixtures.mockCurrentUser();
+    const { workspace: workspace1 } = await fixtures.workspace.create({
+      ctx,
+      shouldCreateProfile: false,
+    });
 
     const input = {
       title: faker.random.word(),
@@ -37,9 +40,7 @@ describe("role.create", () => {
       createdBy: null,
       updatedBy: null,
     });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     expect(response.createdAt).toBeWithinMinuteAs(new Date());
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     expect(response.updatedAt).toBeWithinMinuteAs(new Date());
   });
 });

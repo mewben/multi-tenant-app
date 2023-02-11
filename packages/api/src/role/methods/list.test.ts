@@ -2,13 +2,13 @@ import fixtures from "~/api/fixtures";
 
 describe("role.list", () => {
   it("should only list within the workspace", async () => {
-    const user1 = await fixtures.user.create({});
-    const user2 = await fixtures.user.create({});
+    const user1 = await fixtures.user.create();
+    const user2 = await fixtures.user.create();
 
     const workspace1 = user1?.profile?.workspace;
     const workspace2 = user2?.profile?.workspace;
 
-    const { caller, ctx } = fixtures.mockCurrentUser({
+    const { caller, ctx } = await fixtures.mockCurrentUser({
       user: user1,
       domain: workspace1?.domain,
     });
@@ -17,7 +17,7 @@ describe("role.list", () => {
     await fixtures.role.create({ ctx });
     await fixtures.role.create({ ctx });
 
-    const { caller: caller2 } = fixtures.mockCurrentUser({
+    const { caller: caller2 } = await fixtures.mockCurrentUser({
       user: user2,
       domain: workspace2?.domain,
     });

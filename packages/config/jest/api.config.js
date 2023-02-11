@@ -6,6 +6,7 @@ module.exports = {
   // This runs once before all tests
   globalSetup: "<rootDir>/packages/config/jest/global.api.setup.js",
   globalTeardown: "<rootDir>/packages/config/jest/global.api.teardown.js",
+  testMatch: ["**/packages/api/**/*.test.ts"],
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     "^~/api/fixtures": "<rootDir>/packages/api/test-fixtures",

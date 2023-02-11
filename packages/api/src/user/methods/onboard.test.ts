@@ -2,11 +2,11 @@ import { faker } from "@faker-js/faker";
 import { PROFILE_STATUS } from "@prisma/client";
 import { pick } from "lodash";
 import slug from "slug";
-import { getCurrentUser } from "@acme/auth";
 import { prisma } from "@acme/db";
 import { getDomainUrl } from "@acme/shared";
 
 import fixtures from "~/api/fixtures";
+import { getCurrentUser } from "~/api/user/helpers/get-current-user";
 
 // we should onboard a user if
 // - no currentProfile or
@@ -14,7 +14,7 @@ import fixtures from "~/api/fixtures";
 describe("user.onboard", () => {
   it("should onboard a verified user", async () => {
     let user = await fixtures.user.create({ shouldOnboard: false });
-    const { caller, ctx } = fixtures.mockCurrentUser({ user });
+    const { caller, ctx } = await fixtures.mockCurrentUser({ user });
 
     const onboardingInput = {
       firstName: faker.name.firstName(),
@@ -53,7 +53,7 @@ describe("user.onboard", () => {
 
   it("should not onboard a non-verified user", async () => {
     const user = await fixtures.user.create({ shouldVerify: false });
-    const { caller } = fixtures.mockCurrentUser({ user });
+    const { caller } = await fixtures.mockCurrentUser({ user });
 
     const onboardingInput = {
       firstName: faker.name.firstName(),

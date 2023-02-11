@@ -7,7 +7,7 @@ import fixtures from "~/api/fixtures";
 
 describe("workspace.create", () => {
   it("should create a new workspace", async () => {
-    const { caller } = fixtures.mockCurrentUser({ user: {} });
+    const { caller } = await fixtures.mockCurrentUser();
 
     const input = {
       title: faker.random.word(),
@@ -18,7 +18,6 @@ describe("workspace.create", () => {
 
     expect(response.title).toEqual(input.title);
     expect(response.domain).toEqual("test-1");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     expect(response.createdAt).toBeWithinMinuteAs(new Date());
 
     // should create a default role for this workspace
@@ -30,8 +29,11 @@ describe("workspace.create", () => {
   });
 
   it("should validate input", async () => {
-    const { caller, ctx } = fixtures.mockCurrentUser({ user: {} });
-    const workspace1 = await fixtures.workspace.create({ ctx });
+    const { caller, ctx } = await fixtures.mockCurrentUser();
+    const { workspace: workspace1 } = await fixtures.workspace.create({
+      ctx,
+      shouldCreateProfile: false,
+    });
 
     const cases = [
       {
