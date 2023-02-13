@@ -2,7 +2,9 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { OnboardingForm } from "~/components/forms/user/onboarding-form";
+import { OnboardingForm } from "~/components/scenes/user/onboarding-form";
+import { WorkspacesList } from "~/components/scenes/user/workspaces-list";
+import { WelcomeWrapper } from "~/components/wrappers/welcome-wrapper";
 
 const Welcome: NextPage = () => {
   return (
@@ -11,8 +13,10 @@ const Welcome: NextPage = () => {
         <title>Welcome</title>
       </Head>
       <h1>Welcome</h1>
-      TODO: show onboarding if not onboarded else show workspaces
-      <OnboardingForm />
+      <WelcomeWrapper
+        renderEmpty={() => <OnboardingForm />}
+        renderContent={(data) => <WorkspacesList list={data} />}
+      />
       <div>
         <Link href="/signout">Sign out</Link>
         <Link href="/">Home page</Link>

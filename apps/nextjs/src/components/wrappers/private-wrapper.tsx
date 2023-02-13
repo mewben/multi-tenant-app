@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const excludePrivatePaths = ["/welcome", "/workspaces"];
+const excludePrivatePaths = ["/welcome", "/create-workspace"];
 
 export const PrivateWrapper = ({
   children,
@@ -18,6 +18,8 @@ export const PrivateWrapper = ({
 }: Props) => {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  console.log("aaa session", session);
 
   // if in excludePaths return normally
   if (includes(excludePaths, router.pathname)) {
@@ -35,13 +37,9 @@ export const PrivateWrapper = ({
     if (!session?.user.emailVerified) {
       // if not verified, redirect to /verify-user
       void router.replace(`/verify-user?userId=${session.user.id}`);
-    } else if (isEmpty(session.user.currentProfile)) {
-      if (isEmpty(session.user.otherProfiles)) {
-        void router.replace(getDomainUrl() + "/welcome");
-      } else {
-        void router.replace(getDomainUrl() + "/workspaces");
-      }
-    } else if (!isEmpty(session.user.currentProfile)) {
+    } else if (isEmpty(session.user.profile)) {
+      void router.replace(getDomainUrl() + "/welcome");
+    } else if (!isEmpty(session.user.profile)) {
       return <>{children}</>;
     }
   }

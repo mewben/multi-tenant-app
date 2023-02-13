@@ -3,7 +3,7 @@ import { type NextPage } from "next";
 import Link from "next/link";
 import { getDomainUrl, t } from "@acme/shared";
 
-import { SigninForm } from "~/components/forms/auth/signin-form";
+import { SigninForm } from "~/components/scenes/auth/signin-form";
 
 const Signin: NextPage = () => {
   const [discordLink, setDiscordLink] = useState("");

@@ -15,6 +15,7 @@ export const api = createTRPCNext<AppRouter>({
   config() {
     return {
       transformer,
+
       links: [
         loggerLink({
           enabled: (opts) =>
@@ -25,6 +26,18 @@ export const api = createTRPCNext<AppRouter>({
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
+
+      /**
+       * QueryClient options
+       */
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+            refetchOnWindowFocus: false,
+          },
+        },
+      },
     };
   },
   ssr: false,

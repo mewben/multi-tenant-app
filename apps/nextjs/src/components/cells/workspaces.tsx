@@ -1,15 +1,15 @@
 import { api, type RouterOutputs } from "~/utils/api";
 
 interface RenderArgs {
-  data: RouterOutputs["role"]["list"] | undefined;
+  data: RouterOutputs["workspace"]["list"] | undefined;
   isLoading: boolean;
 }
 interface Props {
   render: (arg: RenderArgs) => JSX.Element;
 }
 
-export const RolesCell = ({ render }: Props) => {
-  const result = api.role.list.useQuery();
+export const WorkspacesCell = ({ render }: Props) => {
+  const result = api.workspace.list.useQuery();
 
   const data = result.data;
 

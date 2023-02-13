@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { SignupForm } from "~/components/forms/auth/signup-form";
+import { SignupForm } from "~/components/scenes/auth/signup-form";
 
 const Signup: NextPage = () => {
   return (

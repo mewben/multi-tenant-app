@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { t } from "@acme/shared";
 
-import { VerifyUserForm } from "~/components/forms/user/verify-user-form";
+import { VerifyUserForm } from "~/components/scenes/user/verify-user-form";
 
 const VerifyUser: NextPage = () => {
   const router = useRouter();

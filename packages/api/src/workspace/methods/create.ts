@@ -14,7 +14,7 @@ interface CreateWorkspaceProps extends WithContext {
 
 export const create = async ({ input, ctx }: CreateWorkspaceProps) => {
   const oldTx = ctx.tx;
-  const currentProfile = getCurrentProfileFromContext(ctx) as CurrentProfile;
+  // const currentProfile = getCurrentProfileFromContext(ctx) as CurrentProfile;
 
   return await ctx.prisma.$transaction(async (tx) => {
     ctx.tx = oldTx ?? tx;
@@ -24,7 +24,7 @@ export const create = async ({ input, ctx }: CreateWorkspaceProps) => {
     // create new profile with this workspace
     await createProfile({
       input: {
-        firstName: currentProfile.firstName,
+        firstName: ctx.session?.user?.name ?? "Name",
         workspaceId: workspace.id,
         roleId: role.id,
         userId: ctx.session?.user?.id as string,
