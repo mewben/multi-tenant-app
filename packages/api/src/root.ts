@@ -1,11 +1,13 @@
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
+import { profileRouter } from "~/api/profile/router";
 import { roleRouter } from "~/api/role/router";
 import { userRouter } from "~/api/user/router";
 import { workspaceRouter } from "~/api/workspace/router";
 import { createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
+  profile: profileRouter,
   role: roleRouter,
   user: userRouter,
   workspace: workspaceRouter,

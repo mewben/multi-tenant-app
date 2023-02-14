@@ -11,10 +11,8 @@ interface Props {
 export const RolesCell = ({ render }: Props) => {
   const result = api.role.list.useQuery();
 
-  const data = result.data;
-
   return render({
-    data,
+    data: result.data,
     isLoading: result.isLoading,
   });
 };

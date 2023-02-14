@@ -4,7 +4,6 @@ import { WorkspaceModel } from "../model";
 
 export const check = async ({ ctx }: WithContext) => {
   const domain = getSubdomain(ctx.headers.host);
-  console.log("aaa domain:", domain);
   if (domain === process.env.NEXT_PUBLIC_APP_SUBDOMAIN) {
     return { domain };
   }

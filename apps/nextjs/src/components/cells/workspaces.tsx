@@ -11,10 +11,8 @@ interface Props {
 export const WorkspacesCell = ({ render }: Props) => {
   const result = api.workspace.list.useQuery();
 
-  const data = result.data;
-
   return render({
-    data,
+    data: result.data,
     isLoading: result.isLoading,
   });
 };

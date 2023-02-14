@@ -1,18 +1,19 @@
-import { SubmitButton } from "@/components/buttons";
+import type { Profile } from "@acme/db";
+import {
+  createUserProfileSchema,
+  t,
+  type CreateUserProfileInput,
+} from "@acme/shared";
+
+import { api } from "~/utils/api";
+import { showNotification } from "~/utils/helpers/show-notification";
+import { SubmitButton } from "~/components/buttons";
 import {
   Form,
   RoleSelectField,
   SwitchField,
   TextField,
-} from "@/components/form";
-import { t } from "@/lib/i18n";
-import {
-  createUserProfileSchema,
-  type CreateUserProfileInput,
-} from "@/types/profile";
-import { api } from "@/utils/api";
-import { showNotification } from "@/utils/helpers/show-notification";
-import type { Profile } from "@prisma/client";
+} from "~/components/form";
 
 interface Props {
   afterSuccess?: (data: Profile) => void;

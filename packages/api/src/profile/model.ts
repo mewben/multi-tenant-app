@@ -68,6 +68,7 @@ export class ProfileModel extends BaseModel {
     });
   }
 
+  // TODO: exclude invitationCode e.g
   async list() {
     return await this._collection.findMany({
       where: { workspaceId: this._currentProfile?.workspace.id },

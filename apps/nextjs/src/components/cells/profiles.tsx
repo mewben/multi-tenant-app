@@ -1,9 +1,8 @@
-import type { Profile } from "@acme/db";
-
-import { api } from "~/utils/api";
+import { api, type RouterOutputs } from "~/utils/api";
 
 interface RenderArgs {
-  data: Profile[] | undefined;
+  data: RouterOutputs["profile"]["list"] | undefined;
+  isLoading: boolean;
 }
 interface Props {
   render: (arg: RenderArgs) => JSX.Element;
@@ -12,9 +11,8 @@ interface Props {
 export const ProfilesCell = ({ render }: Props) => {
   const result = api.profile.list.useQuery();
 
-  const data = result.data;
-
   return render({
-    data,
+    data: result.data,
+    isLoading: result.isLoading,
   });
 };
