@@ -27,21 +27,20 @@ const config = {
   returnNull: false,
 };
 
-i18next
-  .use(InstancePlugin)
-  .use(
-    resourcesToBackend(
-      (language: string, namespace: string) =>
-        import(`../../public/locales/${language}/${namespace}.js`),
-    ),
-  )
-  .use(initReactI18next)
-  .init({
-    ...config,
-    interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
-    },
-  })
-  .catch((err) => {
-    console.log("aaa error i18n", err);
-  });
+const initialize = () => {
+  const instance = i18next.createInstance(config);
+
+  if (!instance.isInitialized) {
+    instance.use(InstancePlugin);
+    instance.use(initReactI18next);
+    instance.use(
+      resourcesToBackend(
+        (language: string, namespace: string) =>
+          import(`../../public/locales/${language}/${namespace}.js`),
+      ),
+    );
+    void instance.init(config);
+  }
+};
+
+initialize();
