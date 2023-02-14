@@ -42,20 +42,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </MantineProvider>
     </SessionProvider>
   );
-
-  return (
-    <SessionProvider session={session}>
-      <MantineProvider withCSSVariables withGlobalStyles withNormalizeCSS>
-        <NotificationsProvider
-          limit={3}
-          autoClose={+env.NEXT_PUBLIC_NOTIF_AUTO_CLOSE}
-          className="notifications-provider"
-        >
-          <Component {...pageProps} />
-        </NotificationsProvider>
-      </MantineProvider>
-    </SessionProvider>
-  );
 };
 
 export default api.withTRPC(MyApp);
