@@ -15,15 +15,13 @@
     "dev:test": "turbo run dev:test --filter nextjs",
     "dev:all": "turbo dev --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "turbo lint --continue",
-    "FIXME:lint": "turbo lint && manypkg check",
+    "lint": "turbo lint && manypkg check",
     "with-test-env": "dotenv -e ./.env.test.local --",
     "test:api": "pnpm with-test-env jest --config jest.api.config.cjs --watch --detectOpenHandles --forceExit",
     "test:e2e": "turbo test:e2e",
     "type-check": "turbo type-check"
   },
   "dependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
     "@manypkg/cli": "^0.20.0",
     "@types/eslint": "^8.21.0",
     "@types/jest": "29.4.0",
@@ -35,13 +33,11 @@
     "jest-date-2": "1.5.1",
     "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.2",
+    "prettier-plugin-organize-imports": "^3.2.2",
     "turbo": "^1.7.4",
     "typescript": "^4.9.5"
   },
   "pnpm": {
-    "patchedDependencies": {
-      "react-native@0.70.5": "patches/react-native@0.70.5.patch"
-    },
     "packageExtensions": {
       "eslint-config-next@*": {
         "dependencies": {
