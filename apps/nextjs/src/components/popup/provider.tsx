@@ -1,14 +1,15 @@
-import { ModalsProvider, openModal, closeModal } from "@mantine/modals";
-import type { WithChildren } from "@/types/app";
 import { createContext, useContext, useState } from "react";
+import { ModalsProvider, closeModal, openModal } from "@mantine/modals";
 import type { ModalSettings } from "@mantine/modals/lib/context";
+import { omit } from "lodash";
+import type { WithChildren } from "@acme/shared";
+
 import {
   DrawersProvider,
+  closeDrawer,
   openDrawer,
   type DrawerSettings,
-  closeDrawer,
 } from "../others/mantine-drawers";
-import { omit } from "lodash";
 
 type PopupType = "modal" | "drawer";
 

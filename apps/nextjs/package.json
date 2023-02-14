@@ -9,6 +9,7 @@
     "dev:test": "pnpm with-test-env next dev",
     "lint": "SKIP_ENV_VALIDATION=1 next lint",
     "start": "next start",
+    "start:local": "pnpm with-env next start",
     "type-check": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --",
     "with-test-env": "dotenv -e ../../.env.test.local --",

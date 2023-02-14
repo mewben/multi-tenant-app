@@ -19,11 +19,11 @@ export const VerifyUserForm = ({ userId, verificationCode = "" }: Props) => {
 
   const onSubmit = (formData: VerifyUserInput) => {
     mutation.mutate(formData, {
-      onError(error: any) {
+      onError(error) {
         setCode(false);
         showNotification({ message: error.message });
       },
-      onSuccess(data: any) {
+      onSuccess(data) {
         showNotification({ color: "green", message: t("user.verify.success") });
         // login again if session.user.id is not the same as userId
         window.location.replace(
