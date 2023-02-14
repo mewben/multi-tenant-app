@@ -1,7 +1,6 @@
 {
   "name": "@acme/jest-config",
   "version": "0.1.0",
-  "main": "index.js",
   "license": "MIT",
   "devDependencies": {
     "jest-watch-typeahead": "2.2.2"

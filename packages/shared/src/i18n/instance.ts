@@ -1,10 +1,8 @@
-interface I18nInstance {
-  t: (un: string, meta: any) => string;
-}
+import { i18n } from "i18next";
 
-let i18nInstance: I18nInstance;
+let i18nInstance: i18n;
 
-export function setInstance(instance: I18nInstance) {
+export function setInstance(instance: i18n) {
   i18nInstance = instance;
 }
 

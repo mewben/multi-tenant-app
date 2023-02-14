@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { getDomainUrl, t } from "@acme/shared";
 import { type NextPage } from "next";
 import Link from "next/link";
-import { getDomainUrl, t } from "@acme/shared";
+import { useEffect, useState } from "react";
 
 import { SigninForm } from "~/components/scenes/auth/signin-form";
 
