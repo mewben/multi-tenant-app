@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
 #__next {
-  @apply m-20;
+  @apply flex h-full min-h-full w-full flex-auto flex-col;
+}
+
+a {
+  @apply font-semibold text-indigo-500 no-underline hover:underline;
 }

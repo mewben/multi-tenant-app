@@ -115,6 +115,7 @@ importers:
       '@mantine/notifications': 5.10.3
       '@mantine/utils': 5.10.3
       '@playwright/test': 1.30.0
+      '@tabler/icons-react': 2.4.0
       '@tanstack/react-query': ^4.23.0
       '@trpc/client': ^10.9.0
       '@trpc/next': ^10.9.0
@@ -153,6 +154,7 @@ importers:
       '@mantine/next': 5.10.3_frkyvidol3cyjondljhrqtyp5u
       '@mantine/notifications': 5.10.3_7qw7iibcf4wkwwwrwp57hnnlya
       '@mantine/utils': 5.10.3_react@18.2.0
+      '@tabler/icons-react': 2.4.0_react@18.2.0
       '@tanstack/react-query': 4.24.6_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.11.1_@trpc+server@10.11.1
       '@trpc/next': 10.11.1_ck2pp32np6ey6osxngwuwfgwei
@@ -3295,6 +3297,20 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       defer-to-connect: 1.1.3
+    dev: false
+
+  /@tabler/icons-react/2.4.0_react@18.2.0:
+    resolution: {integrity: sha512-U04bSknpXPdZP8soAnMPiz4g6PXPfWHfMoe2qhDoRlnS8UJ8JHHE/k4Lx4rw2Tfy9a2QJeoPV5HQIeKXrNPHGA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.4.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons/2.4.0:
+    resolution: {integrity: sha512-JZY9Kk3UsQoqp7Rw/BuWw1PrkRwv5h0psjJBbj+Cn9UVyhdzr5vztg2mywXBAJ+jFBUL/pjnVcIvOzKFw4CXng==}
     dev: false
 
   /@tanstack/query-core/4.24.6:

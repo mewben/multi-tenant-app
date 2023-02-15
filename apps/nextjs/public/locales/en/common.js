@@ -2,8 +2,10 @@ module.exports = {
   auth: {
     signin: {
       title: "Signin",
+      btn: "Continue",
     },
   },
   email: "Email Address",
-  h1: "A simple example",
+  password: "Password",
+  submit: "Submit",
 };

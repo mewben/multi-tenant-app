@@ -1,9 +1,12 @@
+import { t } from "@acme/shared";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { t } from "@acme/shared";
 
+import { Center, Paper } from "@mantine/core";
+import { DefaultLayout } from "~/components/layouts/default-layout";
+import { Logo } from "~/components/others/logo";
 import { VerifyUserForm } from "~/components/scenes/user/verify-user-form";
 
 const VerifyUser: NextPage = () => {
@@ -22,22 +25,24 @@ const VerifyUser: NextPage = () => {
   };
 
   return (
-    <>
-      <Head>
-        <title>Verify User</title>
-      </Head>
-      <div>
-        <h1>{t("auth.verify.title")}</h1>
-        {renderContent()}
-
-        <div>
-          <span>{t("auth.Already have an account?")}</span>
-          <Link href={"/signin"}>{t("auth.Login")}</Link>
-          <span>{t("auth.noAccount")}</span>
-          <Link href={"/signup"}>{t("auth.signup.btn")}</Link>
-        </div>
-      </div>
-    </>
+    <DefaultLayout>
+      <Center>
+        <Paper shadow="xs" radius="lg" className="w-[400px] space-y-12 p-14">
+          <Head>
+            <title>Verify User</title>
+          </Head>
+          <Logo />
+          <div>
+            <h2 className="mb-0">{t("auth.verify.title")}</h2>
+            <div className="text-sm opacity-75">
+              {t(`auth.Back to Signin `)}
+              <Link href="/signin">{t("Signin in to another account")}</Link>
+            </div>
+          </div>
+          {renderContent()}
+        </Paper>
+      </Center>
+    </DefaultLayout>
   );
 };
 

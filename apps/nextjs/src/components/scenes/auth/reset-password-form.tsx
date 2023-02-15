@@ -43,8 +43,15 @@ export const ResetPasswordForm = ({ email, resetToken }: Props) => {
       schema={resetPasswordSchema}
       onSubmit={onSubmit}
     >
-      <PasswordField name="newPassword" label={t("newPassword")} />
-      <SubmitButton>{t("submit")}</SubmitButton>
+      <PasswordField name="newPassword" label={t("newPassword")} size="md" />
+      <SubmitButton
+        loading={mutation.isLoading}
+        size="md"
+        radius="md"
+        fullWidth
+      >
+        {t("submit")}
+      </SubmitButton>
     </Form>
   );
 };

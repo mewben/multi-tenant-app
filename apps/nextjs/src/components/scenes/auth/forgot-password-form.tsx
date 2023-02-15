@@ -34,8 +34,15 @@ export const ForgotPasswordForm = () => {
       schema={forgotPasswordSchema}
       onSubmit={onSubmit}
     >
-      <TextField name="email" label={t("email")} />
-      <SubmitButton>{t("submit")}</SubmitButton>
+      <TextField name="email" label={t("email")} size="md" />
+      <SubmitButton
+        loading={mutation.isLoading}
+        size="md"
+        radius="md"
+        fullWidth
+      >
+        {t("submit")}
+      </SubmitButton>
     </Form>
   );
 };

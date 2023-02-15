@@ -5,10 +5,10 @@ import {
   type CreateWorkspaceInput,
 } from "@acme/shared";
 
-import { api } from "~/utils/api";
-import { showNotification } from "~/utils/helpers/show-notification";
 import { SubmitButton } from "~/components/buttons";
 import { Form, TextField } from "~/components/form";
+import { api } from "~/utils/api";
+import { showNotification } from "~/utils/helpers/show-notification";
 
 export const CreateWorkspaceForm = () => {
   const mutation = api.workspace.create.useMutation();
@@ -37,7 +37,9 @@ export const CreateWorkspaceForm = () => {
     >
       <TextField name="title" label={t("workspace.title")} />
       <TextField name="domain" label={t("workspace.domain")} />
-      <SubmitButton loading={mutation.isLoading}>{t("submit")}</SubmitButton>
+      <SubmitButton loading={mutation.isLoading} fullWidth>
+        {t("submit")}
+      </SubmitButton>
     </Form>
   );
 };

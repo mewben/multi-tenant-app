@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { t, verifyUserSchema, type VerifyUserInput } from "@acme/shared";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-import { api } from "~/utils/api";
-import { showNotification } from "~/utils/helpers/show-notification";
 import { SubmitButton } from "~/components/buttons";
 import { Form, TextField } from "~/components/form";
+import { api } from "~/utils/api";
+import { showNotification } from "~/utils/helpers/show-notification";
 
 interface Props {
   userId: string;
@@ -53,8 +53,19 @@ export const VerifyUserForm = ({ userId, verificationCode = "" }: Props) => {
       initialValues={{ id: userId, verificationCode }}
       onSubmit={onSubmit}
     >
-      <TextField name="verificationCode" label={t("auth.verificationCode")} />
-      <SubmitButton loading={mutation.isLoading}>{t("submit")}</SubmitButton>
+      <TextField
+        name="verificationCode"
+        label={t("auth.verificationCode")}
+        size="md"
+      />
+      <SubmitButton
+        loading={mutation.isLoading}
+        size="md"
+        radius="md"
+        fullWidth
+      >
+        {t("submit")}
+      </SubmitButton>
     </Form>
   );
 };

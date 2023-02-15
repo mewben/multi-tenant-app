@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { getDomainUrl } from "@acme/shared";
+import type { ReactNode } from "react";
 
 import { api } from "~/utils/api";
 
@@ -21,5 +21,5 @@ export const CheckWorkspaceWrapper = ({
     );
   }
 
-  return <main className="main-layout">{children}</main>;
+  return <>{children}</>;
 };

@@ -1,6 +1,6 @@
+import { getDomainUrl } from "@acme/shared";
 import { faker } from "@faker-js/faker";
 import { expect, test } from "@playwright/test";
-import { getDomainUrl } from "@acme/shared";
 
 import { signupAndOnboard } from "../fixtures";
 
@@ -11,12 +11,12 @@ test.describe("Check Workspace", () => {
   }) => {
     const res = await signupAndOnboard(browser);
     await page.goto(getDomainUrl({ domain: res.workspaceDomain }));
-    await expect(page.locator(".main-layout")).toBeVisible();
+    await expect(page.locator(".workspace-not-found")).not.toBeVisible();
   });
 
   test("should show children on main subdomain", async ({ page }) => {
     await page.goto(getDomainUrl());
-    await expect(page.locator(".main-layout")).toBeVisible();
+    await expect(page.locator(".workspace-not-found")).not.toBeVisible();
   });
 
   test("should show workspace not found on non-existing workspace", async ({

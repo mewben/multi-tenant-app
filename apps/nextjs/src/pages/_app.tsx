@@ -5,7 +5,6 @@ import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/app";
 import "../styles/globals.css";
 
-import { appWithTranslation } from "next-i18next";
 import { PopupProvider } from "~/components/popup";
 import { CheckWorkspaceWrapper } from "~/components/wrappers/check-workspace-wrapper";
 import { PrivateWrapper } from "~/components/wrappers/private-wrapper";
@@ -31,7 +30,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <MantineProvider withCSSVariables withGlobalStyles withNormalizeCSS>
+      <MantineProvider
+        withCSSVariables
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ primaryColor: "violet" }}
+      >
         <CheckWorkspaceWrapper>
           <I18nProvider>
             <PopupProvider>
@@ -52,4 +56,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 
-export default api.withTRPC(appWithTranslation(MyApp));
+export default api.withTRPC(MyApp);

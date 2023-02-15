@@ -1,7 +1,7 @@
-import React from "react";
-import Link from "next/link";
-import { map } from "lodash";
 import { getDomainUrl, t } from "@acme/shared";
+import { map } from "lodash";
+import Link from "next/link";
+import React from "react";
 
 import { RouterOutputs } from "~/utils/api";
 
@@ -12,8 +12,9 @@ interface Props {
 export const WorkspacesList = ({ list }: Props) => {
   return (
     <div>
-      <h2>{t("Select workspace")}</h2>
+      <h3>{t("Select workspace")}</h3>
       <div className="workspaces-list">
+        <Link href="/create-workspace">{t("workspace.create")}</Link>
         {map(list, (profile) => {
           const url = getDomainUrl(profile?.workspace);
           return (
@@ -23,8 +24,6 @@ export const WorkspacesList = ({ list }: Props) => {
           );
         })}
       </div>
-      <Link href="/create-workspace">{t("workspace.create")}</Link>
-      <hr />
     </div>
   );
 };

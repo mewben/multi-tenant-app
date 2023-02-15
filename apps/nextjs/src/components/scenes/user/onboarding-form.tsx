@@ -37,7 +37,9 @@ export const OnboardingForm = () => {
       <TextField name="firstName" label={t("profile.firstName")} />
       <TextField name="workspaceTitle" label={t("workspace.title")} />
       <TextField name="workspaceDomain" label={t("workspace.domain")} />
-      <SubmitButton loading={mutation.isLoading}>{t("submit")}</SubmitButton>
+      <SubmitButton loading={mutation.isLoading} fullWidth>
+        {t("submit")}
+      </SubmitButton>
     </Form>
   );
 };
