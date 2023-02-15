@@ -1,9 +1,9 @@
+import { getDomainUrl } from "@acme/shared";
 import { faker } from "@faker-js/faker";
 import { expect, type Browser, type Page } from "@playwright/test";
-import { getDomainUrl } from "@acme/shared";
 
-const VERIFICATION_CODE = process.env.VERIFICATION_CODE || "123456";
-const RESET_TOKEN = process.env.RESET_TOKEN;
+const VERIFICATION_CODE = process.env.VERIFICATION_CODE || "111111";
+const RESET_TOKEN = process.env.RESET_TOKEN || "222222";
 const RETRY_LIMIT = 10;
 const TOAST_ERROR_DIV = ".notifications-provider [role=alert]";
 
@@ -52,7 +52,7 @@ const signupAndVerify = async (page: Page) => {
 
   const verifyUrl = page.url() + `&verificationCode=${VERIFICATION_CODE}`;
   await page.goto(verifyUrl);
-  await page.waitForURL("/welcome");
+  // await page.waitForURL("/welcome");
   // await page.waitForNavigation({ url: "/welcome" });
 
   await expect(page).toHaveURL(/app.*\/welcome/);

@@ -21,6 +21,7 @@ const Signin: NextPage = () => {
       <h1>{t("auth.signin.title")}</h1>
       <SigninForm />
       <div>
+        <Link href="/forgot-password">{t("auth.Forgot Password")}</Link>
         <Link href="/signup">Signup</Link>
         <Link href={discordLink}>Sign In (Discord)</Link>
         <Link href="/">Home page</Link>

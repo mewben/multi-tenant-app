@@ -195,6 +195,7 @@ importers:
       '@types/crypto-js': ^4.1.1
       '@types/slug': 5.0.3
       crypto-js: ^4.1.1
+      dayjs: 1.11.7
       eslint: ^8.32.0
       lodash: 4.17.21
       next-auth: ^4.19.0
@@ -209,6 +210,7 @@ importers:
       '@trpc/client': 10.11.1_@trpc+server@10.11.1
       '@trpc/server': 10.11.1
       crypto-js: 4.1.1
+      dayjs: 1.11.7
       lodash: 4.17.21
       next-auth: 4.19.2
       slug: 8.2.2

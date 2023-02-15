@@ -21,7 +21,8 @@ const publicPaths = [
   "/signup",
   "/callback",
   "/verify-user",
-  "/sample",
+  "/forgot-password",
+  "/reset-password",
 ];
 
 const MyApp: AppType<{ session: Session | null }> = ({

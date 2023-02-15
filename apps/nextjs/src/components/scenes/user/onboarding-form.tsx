@@ -5,10 +5,9 @@ import {
   type OnboardingInput,
 } from "@acme/shared";
 
+import { Form, SubmitButton, TextField } from "~/components/form";
 import { api } from "~/utils/api";
 import { showNotification } from "~/utils/helpers/show-notification";
-import { SubmitButton } from "~/components/buttons";
-import { Form, TextField } from "~/components/form";
 
 export const OnboardingForm = () => {
   const mutation = api.user.onboard.useMutation();

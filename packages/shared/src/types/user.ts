@@ -22,7 +22,19 @@ export const onboardingSchema = z.object({
   workspaceDomain: z.string().min(2),
 });
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().email(),
+});
+
+export const resetPasswordSchema = z.object({
+  email: z.string().email(),
+  resetToken: z.string().min(1),
+  newPassword: z.string().min(6),
+});
+
 export type VerifyUserInput = TypeOf<typeof verifyUserSchema>;
 export type SignupInput = TypeOf<typeof signupSchema>;
 export type SigninInput = TypeOf<typeof signinSchema>;
 export type OnboardingInput = TypeOf<typeof onboardingSchema>;
+export type ForgotPasswordInput = TypeOf<typeof forgotPasswordSchema>;
+export type ResetPasswordInput = TypeOf<typeof resetPasswordSchema>;

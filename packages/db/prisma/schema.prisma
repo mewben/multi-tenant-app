@@ -51,7 +51,7 @@ model Account {
     verificationCode    String?        @db.Char(6)
     hashedPassword      String?
     salt                String?
-    resetToken          String?        @unique
+    resetToken          String?        
     resetTokenExpiresAt DateTime?
     // ---
     user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)

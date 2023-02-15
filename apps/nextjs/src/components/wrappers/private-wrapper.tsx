@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
+import { getDomainUrl } from "@acme/shared";
 import { includes, isEmpty } from "lodash";
 import { useSession } from "next-auth/react";
-import { getDomainUrl } from "@acme/shared";
+import { useRouter } from "next/router";
 
 interface Props {
   to?: string;
@@ -18,8 +18,6 @@ export const PrivateWrapper = ({
 }: Props) => {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  console.log("aaa session", session);
 
   // if in excludePaths return normally
   if (includes(excludePaths, router.pathname)) {

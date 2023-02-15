@@ -1,8 +1,8 @@
+import { getDomainUrl } from "@acme/shared";
 import { faker } from "@faker-js/faker";
 import { expect, test } from "@playwright/test";
-import { getDomainUrl } from "@acme/shared";
 
-import { TOAST_ERROR_DIV, signupAndOnboard } from "../fixtures";
+import { signupAndOnboard, TOAST_ERROR_DIV } from "../fixtures";
 
 test.describe("Signin", () => {
   test("should redirect to /welcome if logged in via main subdomain", async ({
