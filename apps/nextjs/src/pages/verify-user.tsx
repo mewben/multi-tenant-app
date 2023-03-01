@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Center, Paper } from "@mantine/core";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 import { VerifyUserForm } from "~/components/scenes/user/verify-user-form";
 
@@ -25,7 +24,7 @@ const VerifyUser: NextPage = () => {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <Center>
         <Paper shadow="xs" radius="lg" className="w-[400px] space-y-12 p-14">
           <Head>
@@ -42,7 +41,7 @@ const VerifyUser: NextPage = () => {
           {renderContent()}
         </Paper>
       </Center>
-    </DefaultLayout>
+    </>
   );
 };
 

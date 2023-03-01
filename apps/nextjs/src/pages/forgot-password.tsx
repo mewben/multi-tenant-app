@@ -2,13 +2,12 @@ import { t } from "@acme/shared";
 import { Center, Paper } from "@mantine/core";
 import { type NextPage } from "next";
 import Link from "next/link";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 import { ForgotPasswordForm } from "~/components/scenes/auth/forgot-password-form";
 
 const ForgotPassword: NextPage = () => {
   return (
-    <DefaultLayout>
+    <>
       <Center>
         <Paper shadow="xs" radius="lg" className="w-[400px] space-y-12 p-14">
           <Logo />
@@ -26,7 +25,7 @@ const ForgotPassword: NextPage = () => {
           </div>
         </Paper>
       </Center>
-    </DefaultLayout>
+    </>
   );
 };
 

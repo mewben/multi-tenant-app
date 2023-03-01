@@ -1,2 +1,2 @@
-export { Button } from "@mantine/core";
+export { Button } from "./button";
 export { SubmitButton } from "./submit-button";

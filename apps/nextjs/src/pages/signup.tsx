@@ -6,7 +6,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/buttons";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 import { SignupForm } from "~/components/scenes/auth/signup-form";
 
@@ -22,7 +21,7 @@ const Signup: NextPage = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    <>
       <Head>
         <title>Signup</title>
       </Head>
@@ -63,7 +62,7 @@ const Signup: NextPage = () => {
           <SignupForm />
         </div>
       </div>
-    </DefaultLayout>
+    </>
   );
 
   return (

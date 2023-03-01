@@ -3,7 +3,6 @@ import { Center, Paper } from "@mantine/core";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 
 import { OnboardingForm } from "~/components/scenes/user/onboarding-form";
@@ -12,7 +11,7 @@ import { WelcomeWrapper } from "~/components/wrappers/welcome-wrapper";
 
 const Welcome: NextPage = () => {
   return (
-    <DefaultLayout>
+    <>
       <Center>
         <Paper shadow="xs" radius="lg" className="w-[480px] space-y-12 p-14">
           <Head>
@@ -32,7 +31,7 @@ const Welcome: NextPage = () => {
           />
         </Paper>
       </Center>
-    </DefaultLayout>
+    </>
   );
 };
 

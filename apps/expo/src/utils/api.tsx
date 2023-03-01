@@ -3,7 +3,7 @@ import Constants from "expo-constants";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
-import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "@acme/api";
 import { transformer } from "@acme/api/transformer";
 

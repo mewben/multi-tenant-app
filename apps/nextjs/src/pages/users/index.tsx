@@ -1,12 +1,14 @@
-import { type NextPage } from "next";
-import { map } from "lodash";
 import { randomCuid, t } from "@acme/shared";
+import { Table, Tabs } from "@mantine/core";
+import { map } from "lodash";
+import { type NextPage } from "next";
+import { Button } from "~/components/buttons";
 
-import { api } from "~/utils/api";
-import { showNotification } from "~/utils/helpers/show-notification";
 import { ProfilesCell } from "~/components/cells/profiles";
 import { usePopupContext } from "~/components/popup";
 import { CreateUserProfileForm } from "~/components/scenes/user/create-user-profile-form";
+import { api } from "~/utils/api";
+import { showNotification } from "~/utils/helpers/show-notification";
 
 const UsersPage: NextPage = () => {
   const { openPopup, closePopup } = usePopupContext();
@@ -43,34 +45,86 @@ const UsersPage: NextPage = () => {
 
   return (
     <>
-      <h1>Users Page</h1>
-      <button onClick={onClickCreate}>Create new user</button>
-      <div>List of users here</div>
-      <ProfilesCell
-        render={({ data }) => {
-          return (
-            <>
-              {map(data, (item) => {
+      <div className="box mt-4 mb-2 flex items-center justify-between">
+        <span className="title text-2xl font-bold">Users</span>
+        <div>
+          <Button onClick={onClickCreate}>Create new user</Button>
+        </div>
+      </div>
+      <div className="mb-3">
+        <Tabs radius="xs" defaultValue="all">
+          <Tabs.List>
+            <Tabs.Tab value="all">All</Tabs.Tab>
+            <Tabs.Tab value="archived">Archived</Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="all">
+            <ProfilesCell
+              render={({ data }) => {
                 return (
-                  <div
-                    key={item.id}
-                    className="border-solid border-gray-200 p-4"
-                  >
-                    <div>{item.id}</div>
-                    <div>{item.firstName}</div>
-                    <button
-                      type="button"
-                      onClick={() => onClickRemove(item.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
+                  <Table verticalSpacing="xs" highlightOnHover>
+                    <thead>
+                      <tr>
+                        <th className="w-full">Name</th>
+                        <th className="min-w-[300px]">&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {map(data, (item) => {
+                        return (
+                          <tr key={item.id}>
+                            <td>{item.firstName}</td>
+                            <td>
+                              <button
+                                type="button"
+                                onClick={() => onClickRemove(item.id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
                 );
-              })}
-            </>
-          );
-        }}
-      />
+              }}
+            />
+          </Tabs.Panel>
+          <Tabs.Panel value="archived">
+            <ProfilesCell
+              render={({ data }) => {
+                return (
+                  <Table verticalSpacing="xs" highlightOnHover>
+                    <thead>
+                      <tr>
+                        <th className="w-full">Name (Archived)</th>
+                        <th className="min-w-[300px]">&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {map(data, (item) => {
+                        return (
+                          <tr key={item.id}>
+                            <td>{item.firstName}</td>
+                            <td>
+                              <button
+                                type="button"
+                                onClick={() => onClickRemove(item.id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                );
+              }}
+            />
+          </Tabs.Panel>
+        </Tabs>
+      </div>
     </>
   );
 };

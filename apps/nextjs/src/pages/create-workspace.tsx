@@ -4,7 +4,6 @@ import Head from "next/head";
 
 import { Center, Paper } from "@mantine/core";
 import Link from "next/link";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 import { CreateWorkspaceForm } from "~/components/scenes/user/create-workspace-form";
 
@@ -12,7 +11,7 @@ const CreateWorkspace: NextPage = () => {
   const title = t("Create new Workspace");
 
   return (
-    <DefaultLayout>
+    <>
       <Center>
         <Paper shadow="xs" radius="lg" className="w-[480px] space-y-12 p-14">
           <Head>
@@ -28,7 +27,7 @@ const CreateWorkspace: NextPage = () => {
           <CreateWorkspaceForm />
         </Paper>
       </Center>
-    </DefaultLayout>
+    </>
   );
 };
 

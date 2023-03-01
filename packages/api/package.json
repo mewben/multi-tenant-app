@@ -8,27 +8,29 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@acme/db": "*",
     "@acme/shared": "*",
     "@next-auth/prisma-adapter": "^1.0.5",
-    "@trpc/client": "^10.9.0",
-    "@trpc/server": "^10.9.0",
+    "@trpc/client": "^10.12.0",
+    "@trpc/server": "^10.12.0",
     "crypto-js": "^4.1.1",
     "dayjs": "1.11.7",
     "lodash": "4.17.21",
     "next-auth": "^4.19.0",
     "slug": "8.2.2",
     "superjson": "1.12.2",
-    "zod": "^3.20.2"
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@faker-js/faker": "7.6.0",
     "@types/crypto-js": "^4.1.1",
     "@types/slug": "5.0.3",
-    "eslint": "^8.32.0",
+    "eslint": "^8.34.0",
+    "eslint-config-acme": "0.0.0",
     "typescript": "^4.9.5"
   }
 }

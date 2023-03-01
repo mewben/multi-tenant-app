@@ -3,11 +3,27 @@
 @tailwind utilities;
 
 html,
+body {
+  @apply m-0 w-full overflow-hidden p-0;
+}
+
+html,
+body,
+#__next {
+  @apply fixed;
+}
+
+body,
+#__next {
+  @apply m-0 h-full w-full;
+}
+
+/* html,
 body,
 #__next {
   @apply flex h-full min-h-full w-full flex-auto flex-col;
 }
 
-a {
+.text-link {
   @apply font-semibold text-indigo-500 no-underline hover:underline;
-}
+} */

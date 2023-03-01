@@ -3,7 +3,6 @@ import { Center, Paper } from "@mantine/core";
 import { type NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 import { ResetPasswordForm } from "~/components/scenes/auth/reset-password-form";
 
@@ -13,7 +12,7 @@ const ResetPassword: NextPage = () => {
   const resetToken = router.query.resetToken as string;
 
   return (
-    <DefaultLayout>
+    <>
       <Center>
         <Paper shadow="xs" radius="lg" className="w-[400px] space-y-12 p-14">
           <Logo />
@@ -33,7 +32,7 @@ const ResetPassword: NextPage = () => {
           <ResetPasswordForm email={email} resetToken={resetToken} />
         </Paper>
       </Center>
-    </DefaultLayout>
+    </>
   );
 };
 

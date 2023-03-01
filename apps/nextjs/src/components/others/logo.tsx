@@ -8,9 +8,9 @@ export const Logo = () => {
         <IconBracketsOff />
       </div>
       <div className="ml-1 font-bold">
-        Acme{" "}
+        Nyaman{" "}
         <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-          PRO
+          TECH
         </span>
       </div>
     </Flex>

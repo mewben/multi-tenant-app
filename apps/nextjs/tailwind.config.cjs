@@ -1,8 +1,11 @@
 /** @type {import("tailwindcss").Config} */
-module.exports = {
+const config = {
+  content: ["./src/**/*.tsx"],
   // @ts-ignore
   presets: [require("@acme/tailwind-config")],
   corePlugins: {
-    preflight: false, // for mantine styles to work properly
+    // preflight: false, // for mantine styles to work properly
   },
 };
+
+module.exports = config;

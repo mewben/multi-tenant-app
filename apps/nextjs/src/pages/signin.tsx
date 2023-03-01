@@ -5,7 +5,6 @@ import { type NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/buttons";
-import { DefaultLayout } from "~/components/layouts/default-layout";
 import { Logo } from "~/components/others/logo";
 import { SigninForm } from "~/components/scenes/auth/signin-form";
 
@@ -21,7 +20,7 @@ const Signin: NextPage = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    <>
       <div className="flex flex-auto items-center justify-center bg-gradient-to-bl  from-pink-500 to-violet-500 p-20 text-white">
         <div className="max-w-4xl">
           <h2 className="text-4xl">Welcome back.</h2>
@@ -62,7 +61,7 @@ const Signin: NextPage = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </>
   );
 };
 

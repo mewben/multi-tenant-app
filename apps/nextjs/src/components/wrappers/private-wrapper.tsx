@@ -2,6 +2,8 @@ import { getDomainUrl } from "@acme/shared";
 import { includes, isEmpty } from "lodash";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { AdminLayout } from "../layouts/admin-layout";
+import { DefaultLayout } from "../layouts/default-layout";
 
 interface Props {
   to?: string;
@@ -21,7 +23,7 @@ export const PrivateWrapper = ({
 
   // if in excludePaths return normally
   if (includes(excludePaths, router.pathname)) {
-    return <>{children}</>;
+    return <DefaultLayout>{children}</DefaultLayout>;
   }
 
   if (status === "unauthenticated") {
@@ -29,7 +31,7 @@ export const PrivateWrapper = ({
     void router.replace(to);
   } else if (status === "authenticated" && !isEmpty(session?.user)) {
     if (includes(excludePrivatePaths, router.pathname)) {
-      return <>{children}</>;
+      return <DefaultLayout>{children}</DefaultLayout>;
     }
 
     if (!session?.user.emailVerified) {
@@ -38,9 +40,9 @@ export const PrivateWrapper = ({
     } else if (isEmpty(session.user.profile)) {
       void router.replace(getDomainUrl() + "/welcome");
     } else if (!isEmpty(session.user.profile)) {
-      return <>{children}</>;
+      return <AdminLayout>{children}</AdminLayout>;
     }
   }
 
-  return <>loading</>;
+  return <DefaultLayout>loading</DefaultLayout>;
 };
