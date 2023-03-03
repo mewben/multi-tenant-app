@@ -4,6 +4,7 @@ import {
   randomId,
   throwError,
   type CreateProfileInput,
+  type UpdateUserProfileInput,
 } from "@acme/shared";
 
 import { RoleModel } from "~/api/role/model";
@@ -13,8 +14,8 @@ import { WorkspaceModel } from "~/api/workspace/model";
 import type { ProfileModel } from "../model";
 
 export type ProcessDocProps = {
-  input: CreateProfileInput;
-  oldDoc?: Profile;
+  input: CreateProfileInput | UpdateUserProfileInput;
+  oldDoc?: Profile | null;
 };
 
 interface Props extends ProcessDocProps {

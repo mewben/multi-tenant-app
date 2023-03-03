@@ -32,7 +32,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <MantineProvider
         withCSSVariables
         withGlobalStyles
-        // withNormalizeCSS
+        withNormalizeCSS
         theme={{ primaryColor: "violet" }}
       >
         <CheckWorkspaceWrapper>

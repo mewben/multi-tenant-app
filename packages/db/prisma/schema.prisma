@@ -117,6 +117,7 @@ model Profile {
     lastName       String?
     status         PROFILE_STATUS @default(inactive)
     emailAddresses String[] @default([])
+    image         String?
     // ---
     invitationCode String?        @unique
     invitedBy      String?        @db.Uuid

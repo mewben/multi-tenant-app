@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AppShell, NavLink, Navbar, ScrollArea } from "@mantine/core";
+import { NavLink, Navbar, ScrollArea } from "@mantine/core";
 import {
   IconHome,
   IconLogout,
@@ -52,8 +52,15 @@ const Sidebar = () => {
 
 export const AdminLayout = ({ children }: WithChildren) => {
   return (
-    <AppShell padding={0} navbar={<Sidebar />}>
-      {children}
-    </AppShell>
+    <div className="flex h-full min-h-full w-full flex-row items-stretch overflow-hidden">
+      <div className="">
+        <Sidebar />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col">
+        <div className="relative flex grow flex-col overflow-auto">
+          {children}
+        </div>
+      </div>
+    </div>
   );
 };

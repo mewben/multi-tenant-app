@@ -2,7 +2,7 @@ import { each, isEqual } from "lodash";
 
 export const getObjectDifference = (
   obj1: Record<string, any>,
-  obj2?: Record<string, any>,
+  obj2?: Record<string, any> | null,
 ): Record<string, any> => {
   if (!obj2) {
     return { ...obj1 };

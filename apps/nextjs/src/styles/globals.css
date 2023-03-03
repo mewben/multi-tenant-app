@@ -18,6 +18,11 @@ body,
   @apply m-0 h-full w-full;
 }
 
+.title2 {
+  @apply text-2xl font-medium;
+  letter-spacing: -0.01em;
+}
+
 /* html,
 body,
 #__next {

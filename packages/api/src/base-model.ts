@@ -8,10 +8,12 @@ export class BaseModel {
   _db: Prisma.TransactionClient;
   _ctx: Context;
   _currentProfile: CurrentProfile;
+  _workspaceId: string;
 
   constructor({ ctx }: WithContext) {
     this._db = ctx.tx ?? ctx.prisma;
     this._ctx = ctx;
     this._currentProfile = getCurrentProfileFromContext(ctx) as CurrentProfile;
+    this._workspaceId = this._currentProfile?.workspace.id;
   }
 }

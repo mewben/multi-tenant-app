@@ -41,6 +41,17 @@ export class ProfileModel extends BaseModel {
     return shouldThrow ? throwError("tn.error:remove.failed") : false;
   }
 
+  async findById(id: string, { shouldThrow = true }: ShouldThrow = {}) {
+    const found = await this._collection.findUnique({
+      where: { id },
+    });
+    if (!found || found.workspaceId !== this._workspaceId) {
+      return shouldThrow ? throwError(`tn.error:role.notFound`) : null;
+    }
+
+    return found;
+  }
+
   async findByWorkspaceAndUser({
     workspaceId,
     userId,
@@ -78,5 +89,16 @@ export class ProfileModel extends BaseModel {
 
   async prepareDoc({ input, oldDoc }: ProcessDocProps) {
     return processDoc({ input, oldDoc, model: this });
+  }
+
+  async update(id: string, data: Prisma.ProfileUncheckedUpdateInput) {
+    return this._collection.update({
+      where: { id },
+      data: {
+        ...data,
+        updatedAt: new Date(),
+        updatedBy: this._currentProfile.id,
+      },
+    });
   }
 }

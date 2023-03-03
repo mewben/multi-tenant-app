@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+import { isEmpty } from "lodash";
 import { AUTH_PROVIDERS } from "@acme/db";
 import {
   randomCuid,
@@ -5,8 +7,7 @@ import {
   type ForgotPasswordInput,
   type WithContext,
 } from "@acme/shared";
-import dayjs from "dayjs";
-import { isEmpty } from "lodash";
+
 import { AccountModel } from "~/api/account/model";
 import { UserModel } from "../model";
 
@@ -56,8 +57,6 @@ export const forgotPassword = async ({ input, ctx }: Props) => {
 
   // TODO: send reset password link
   // /reset-password?email=email&resetToken=token
-
-  console.log("aaa updated:", updated);
 
   return true;
 };
