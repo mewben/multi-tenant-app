@@ -3,6 +3,7 @@ import { AUTH_PROVIDERS } from "@prisma/client";
 import { IconPencil } from "@tabler/icons-react";
 import { find } from "lodash";
 import {
+  randomCuid,
   t,
   updateUserProfileSchema,
   type UpdateUserProfileInput,
@@ -11,18 +12,21 @@ import {
 import { api, type RouterOutputs } from "~/utils/api";
 import { showNotification } from "~/utils/helpers/show-notification";
 import { Form, SubmitButton, TextField } from "~/components/form";
+import { usePopupContext } from "~/components/popup";
+import { UpdatePasswordForm } from "../auth/update-password-form";
 
 interface Props {
   profile: RouterOutputs["profile"]["getById"] | undefined | null;
 }
 
 export const UpdateProfileForm = ({ profile }: Props) => {
+  const apiContext = api.useContext();
+  const mutation = api.profile.update.useMutation();
+  const { openPopup, closePopup } = usePopupContext();
+
   if (!profile) {
     return null;
   }
-
-  const apiContext = api.useContext();
-  const mutation = api.profile.update.useMutation();
 
   const onSubmit = (formData: UpdateUserProfileInput) => {
     mutation.mutate(formData, {
@@ -32,6 +36,15 @@ export const UpdateProfileForm = ({ profile }: Props) => {
       async onSuccess() {
         await apiContext.profile.getById.invalidate({ id: profile?.id });
       },
+    });
+  };
+
+  const onClickChangePassword = () => {
+    const popupId = randomCuid();
+    openPopup({
+      popupId,
+      title: t("change password"),
+      children: <UpdatePasswordForm afterSuccess={() => closePopup(popupId)} />,
     });
   };
 
@@ -73,7 +86,11 @@ export const UpdateProfileForm = ({ profile }: Props) => {
                   ******
                 </Text>
                 <span className="hidden group-hover:block">
-                  <ActionIcon variant="transparent" size="sm">
+                  <ActionIcon
+                    variant="transparent"
+                    size="sm"
+                    onClick={onClickChangePassword}
+                  >
                     <IconPencil size="1rem" />
                   </ActionIcon>
                 </span>

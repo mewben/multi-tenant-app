@@ -1,14 +1,14 @@
-import { randomCuid, t } from "@acme/shared";
+import { type NextPage } from "next";
 import { Table, Tabs } from "@mantine/core";
 import { map } from "lodash";
-import { type NextPage } from "next";
-import { Button } from "~/components/buttons";
+import { randomCuid, t } from "@acme/shared";
 
+import { api } from "~/utils/api";
+import { showNotification } from "~/utils/helpers/show-notification";
+import { Button } from "~/components/buttons";
 import { ProfilesCell } from "~/components/cells/profiles";
 import { usePopupContext } from "~/components/popup";
 import { CreateUserProfileForm } from "~/components/scenes/user/create-user-profile-form";
-import { api } from "~/utils/api";
-import { showNotification } from "~/utils/helpers/show-notification";
 
 const UsersPage: NextPage = () => {
   const { openPopup, closePopup } = usePopupContext();
@@ -18,8 +18,7 @@ const UsersPage: NextPage = () => {
   const onClickCreate = () => {
     const popupId = randomCuid();
     openPopup({
-      modalId: popupId,
-      drawerId: popupId,
+      popupId,
       title: t("user.create.title"),
       children: (
         <CreateUserProfileForm afterSuccess={() => closePopup(popupId)} />

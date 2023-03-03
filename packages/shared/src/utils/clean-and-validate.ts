@@ -1,11 +1,11 @@
 import { each, get, isEmpty, values } from "lodash";
-import { type ZodObject } from "zod";
+import { type ZodEffects, type ZodObject } from "zod";
 
 import { t } from "../i18n";
 import { throwError } from "./throw-error";
 
 interface Props {
-  schema: ZodObject<any>;
+  schema: ZodObject<any> | ZodEffects<ZodObject<any>>;
   input: Record<string, any> | undefined;
   shouldThrow?: boolean;
 }
@@ -17,7 +17,7 @@ export const cleanAndValidate = ({
   input,
   shouldThrow = true,
 }: Props) => {
-  const parsed = schema.strip().safeParse(input);
+  const parsed = schema.safeParse(input);
 
   const errors: Record<string, any> = {};
 

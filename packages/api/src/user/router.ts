@@ -2,6 +2,7 @@ import {
   forgotPasswordSchema,
   onboardingSchema,
   resetPasswordSchema,
+  updatePasswordSchema,
   verifyUserSchema,
 } from "@acme/shared";
 
@@ -10,7 +11,13 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/api/trpc";
-import { forgotPassword, onboard, resetPassword, verify } from "./methods";
+import {
+  forgotPassword,
+  onboard,
+  resetPassword,
+  updatePassword,
+  verify,
+} from "./methods";
 
 export const userRouter = createTRPCRouter({
   verify: publicProcedure.input(verifyUserSchema).mutation(verify),
@@ -21,4 +28,7 @@ export const userRouter = createTRPCRouter({
   resetPassword: publicProcedure
     .input(resetPasswordSchema)
     .mutation(resetPassword),
+  updatePassword: protectedProcedure
+    .input(updatePasswordSchema)
+    .mutation(updatePassword),
 });

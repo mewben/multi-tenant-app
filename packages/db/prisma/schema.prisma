@@ -39,7 +39,7 @@ model Account {
     userId              String         @db.Uuid
     type                PROVIDER_TYPES
     provider            AUTH_PROVIDERS
-    providerAccountId   String
+    providerAccountId   String // this is same as userId for credentials provider
     refresh_token       String?        @db.Text
     access_token        String?        @db.Text
     expires_at          Int?

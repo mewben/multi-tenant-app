@@ -1,6 +1,6 @@
-import { createFormContext } from "@mantine/form";
 import { type ReactNode } from "react";
-import { type ZodObject } from "zod";
+import { createFormContext } from "@mantine/form";
+import { type ZodEffects, type ZodObject } from "zod";
 
 import { zodResolver } from "./zod-resolver";
 
@@ -9,7 +9,7 @@ const [FormProvider, useFormContext, useForm] = createFormContext();
 interface Props {
   name: string;
   initialValues: Record<string, any>;
-  schema: ZodObject<any>;
+  schema: ZodObject<any> | ZodEffects<ZodObject<any>>;
   onSubmit: (formData: any) => void;
   children: ReactNode;
 }

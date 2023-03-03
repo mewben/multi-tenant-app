@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { ModalsProvider, closeModal, openModal } from "@mantine/modals";
 import type { ModalSettings } from "@mantine/modals/lib/context";
-import { omit } from "lodash";
 import type { WithChildren } from "@acme/shared";
 
 import {
@@ -12,11 +11,15 @@ import {
 } from "../others/mantine-drawers";
 
 type PopupType = "modal" | "drawer";
+type OpenPopupParams = ModalSettings &
+  DrawerSettings & {
+    popupId?: string;
+  };
 
 interface PopupContextType {
   type: PopupType;
   setPopupType: (type: PopupType) => void;
-  openPopup: (params: ModalSettings & DrawerSettings) => void; // may open a modal or a drawer depending on user settings
+  openPopup: (params: OpenPopupParams) => void; // may open a modal or a drawer depending on user settings
   closePopup: (popupId: string) => void;
   openModal: (params: ModalSettings) => void; // for opening a modal directly
   openDrawer: (params: DrawerSettings) => void; // for opening a drawer directly
@@ -29,10 +32,12 @@ const PopupContext = createContext<PopupContextType | null>(null);
 export const Provider = ({ children }: WithChildren) => {
   const [type, setPopupType] = useState<PopupType>("modal");
 
-  const openPopup = (params: ModalSettings & DrawerSettings) => {
+  const openPopup = (params: OpenPopupParams) => {
+    const popupId = params.popupId;
+    delete params.popupId;
     return type === "drawer"
-      ? openDrawer(omit(params, "modalId"))
-      : openModal(omit(params, "drawerId"));
+      ? openDrawer({ ...params, drawerId: popupId })
+      : openModal({ ...params, modalId: popupId });
   };
 
   const closePopup = (popupId: string) => {

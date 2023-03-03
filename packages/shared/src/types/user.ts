@@ -32,9 +32,20 @@ export const resetPasswordSchema = z.object({
   newPassword: z.string().min(6),
 });
 
+export const updatePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(6),
+    newPassword: z.string().min(6),
+    confirmPassword: z.string().min(6),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    path: ["confirmPassword"],
+  });
+
 export type VerifyUserInput = TypeOf<typeof verifyUserSchema>;
 export type SignupInput = TypeOf<typeof signupSchema>;
 export type SigninInput = TypeOf<typeof signinSchema>;
 export type OnboardingInput = TypeOf<typeof onboardingSchema>;
 export type ForgotPasswordInput = TypeOf<typeof forgotPasswordSchema>;
 export type ResetPasswordInput = TypeOf<typeof resetPasswordSchema>;
+export type UpdatePasswordInput = TypeOf<typeof updatePasswordSchema>;
