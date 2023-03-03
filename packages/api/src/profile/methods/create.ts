@@ -1,4 +1,5 @@
 import {
+  getDomainUrl,
   randomCuid,
   type CreateUserProfileInput,
   type WithContext,
@@ -7,6 +8,8 @@ import {
 import { createProfile } from "~/api/profile/helpers/create-profile";
 import { createUser } from "~/api/user/helpers/create-user";
 import { UserModel } from "~/api/user/model";
+import { getCurrentProfileFromContext } from "~/api/utils/get-current-user-from-context";
+import { sendEmail } from "~/api/utils/send-email";
 
 interface Props extends WithContext {
   input: CreateUserProfileInput;
@@ -17,6 +20,8 @@ export const create = async ({ input, ctx }: Props) => {
   const oldTx = ctx.tx;
   return await ctx.prisma.$transaction(async (tx) => {
     ctx.tx = oldTx ?? tx;
+
+    const currentProfile = getCurrentProfileFromContext(ctx);
 
     // create user if email not found
     const userModel = new UserModel({ ctx });
@@ -45,6 +50,24 @@ export const create = async ({ input, ctx }: Props) => {
       },
       ctx,
     });
+
+    if (input.willInvite) {
+      // send invitation link
+      // <domain>/accept-invitation?email=email&invitationCode=333344
+      const invitationLink =
+        getDomainUrl({ domain: currentProfile.workspace.domain }) +
+        `/accept-invitation?email=${input.email}&invitationCode=${profile.invitationCode}`;
+
+      if (process.env.NODE_ENV !== "production") {
+        console.log("--- INVITATION LINK: ", invitationLink);
+      }
+
+      void sendEmail({
+        to: input.email,
+        subject: "TODO: You are invited.",
+        text: `Accept invitation link: ${invitationLink}`,
+      });
+    }
 
     ctx.tx = oldTx;
     return profile;

@@ -1,10 +1,16 @@
 import { AUTH_PROVIDERS, PROVIDER_TYPES } from "@prisma/client";
 import { pick } from "lodash";
-import type { Context } from "next-auth";
 import { prisma } from "@acme/db";
-import { SignupInput, cleanAndValidate, signupSchema } from "@acme/shared";
+import {
+  cleanAndValidate,
+  getDomainUrl,
+  signupSchema,
+  type Context,
+  type SignupInput,
+} from "@acme/shared";
 
 import { createAccount } from "~/api/account/helpers/create-account";
+import { sendEmail } from "~/api/utils/send-email";
 import { createUser } from "./create-user";
 
 interface Props {
@@ -41,7 +47,20 @@ export const signup = async ({ input }: Props) => {
       ctx,
     });
 
-    // TODO: send verification link
+    // send verification link
+    // http://app.mta.localhost:3000/verify-user?userId=fa42a6a3-f3b5-43ed-8525-ac849213a7ec&verificationCode=12345
+    const verificationLink =
+      getDomainUrl() +
+      `/verify-user?userId=${user.id}&verificationCode=${account.verificationCode}`;
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log("--- VERIFICATION LINK: ", verificationLink);
+    }
+    void sendEmail({
+      to: user.email as string,
+      subject: "TODO: Welcome. Please verify your account.",
+      text: `Verification Link: ${verificationLink}`,
+    });
 
     return user;
   });

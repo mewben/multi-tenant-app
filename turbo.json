@@ -60,6 +60,10 @@
     "SKIP_ENV_VALIDATION",
     "VERCEL",
     "VERCEL_URL",
-    "PORT"
+    "PORT",
+    "IS_ETHEREAL_EMAIL",
+    "SEND_IN_BLUE_USER",
+    "SEND_IN_BLUE_KEY",
+    "RESET_TOKEN"
   ]
 }

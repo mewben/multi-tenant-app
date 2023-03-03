@@ -33,10 +33,9 @@ export const processDoc = async ({ input, oldDoc, model }: Props) => {
     const roleModel = new RoleModel({ ctx: model._ctx });
     await roleModel.findById(upd.roleId, { shouldThrow: true });
   }
-  let user;
   if (upd.userId) {
     const userModel = new UserModel({ ctx: model._ctx });
-    user = await userModel.findById(upd.userId, { shouldThrow: true });
+    await userModel.findById(upd.userId, { shouldThrow: true });
   }
 
   if (isInsert) {
@@ -65,9 +64,7 @@ export const processDoc = async ({ input, oldDoc, model }: Props) => {
       upd.status = PROFILE_STATUS.pending;
 
       if (process.env.NODE_ENV !== "production") {
-        upd.invitationCode = `${process.env.VERIFICATION_CODE || "123456"}${
-          user?.email as string
-        }`;
+        upd.invitationCode = `${process.env.VERIFICATION_CODE || "123456"}`;
       }
     }
     upd.invitedBy = currentProfile?.id;

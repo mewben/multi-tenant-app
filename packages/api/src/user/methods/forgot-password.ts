@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { isEmpty } from "lodash";
 import { AUTH_PROVIDERS } from "@acme/db";
 import {
+  getDomainUrl,
   randomCuid,
   throwError,
   type ForgotPasswordInput,
@@ -9,12 +10,17 @@ import {
 } from "@acme/shared";
 
 import { AccountModel } from "~/api/account/model";
+import { sendEmail } from "~/api/utils/send-email";
 import { UserModel } from "../model";
 
 interface Props extends WithContext {
   input: ForgotPasswordInput;
 }
+
+// TODO: if not in main subdomain, restrict email if found inside that workspace
 export const forgotPassword = async ({ input, ctx }: Props) => {
+  const isDev = process.env.NODE_ENV !== "production";
+
   // get the user by email with account type credentials
   const userModel = new UserModel({ ctx });
   const doc = await userModel._collection.findUnique({
@@ -47,16 +53,26 @@ export const forgotPassword = async ({ input, ctx }: Props) => {
       id: doc.accounts[0]?.id,
     },
     data: {
-      resetToken:
-        process.env.NODE_ENV !== "production"
-          ? process.env.RESET_TOKEN
-          : randomCuid(),
+      resetToken: isDev ? process.env.RESET_TOKEN : randomCuid(),
       resetTokenExpiresAt: dayjs().add(1, "hour").toDate(),
     },
   });
 
-  // TODO: send reset password link
+  // send reset password link
   // /reset-password?email=email&resetToken=token
+  const resetPasswordLink =
+    getDomainUrl() +
+    `/reset-password?email=${doc.email}&resetToken=${updated.resetToken}`;
+
+  if (isDev) {
+    console.log("--- RESET PASSWORD LINK: ", resetPasswordLink);
+  }
+
+  void sendEmail({
+    to: input.email,
+    subject: "TODO: Reset Password",
+    text: `Reset Password Link: ${resetPasswordLink}`,
+  });
 
   return true;
 };

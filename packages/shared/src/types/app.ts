@@ -1,9 +1,20 @@
-import type { Context } from "next-auth";
+import type { IncomingHttpHeaders } from "http";
+import type { ISODateString } from "next-auth";
 import type { Prisma, PrismaClient } from "@acme/db";
+
+export interface Session {
+  user?: CurrentUser;
+  expires: ISODateString;
+}
 
 export interface WithPrisma {
   prisma: PrismaClient;
   tx?: Prisma.TransactionClient;
+}
+
+export interface Context extends WithPrisma {
+  session: Session | null;
+  headers: IncomingHttpHeaders;
 }
 
 export interface WithContext {
