@@ -1,9 +1,9 @@
-import { getDomainUrl, t } from "@acme/shared";
-import { map } from "lodash";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { map } from "lodash";
+import { getDomainUrl, t } from "@acme/shared";
 
-import { RouterOutputs } from "~/utils/api";
+import { type RouterOutputs } from "~/utils/api";
 
 interface Props {
   list: RouterOutputs["workspace"]["list"];

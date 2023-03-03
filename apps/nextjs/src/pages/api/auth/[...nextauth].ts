@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next/types";
+import type { NextApiRequest, NextApiResponse } from "next/types";
 import NextAuth from "next-auth";
 import { getAuthOptions } from "@acme/api";
 

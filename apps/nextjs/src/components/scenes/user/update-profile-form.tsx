@@ -72,11 +72,6 @@ export const UpdateProfileForm = ({ profile }: Props) => {
               <Text c="dimmed" size="md">
                 {profile?.user?.email}
               </Text>
-              <span className="hidden group-hover:block">
-                <ActionIcon variant="transparent" size="sm">
-                  <IconPencil size="1rem" />
-                </ActionIcon>
-              </span>
             </div>
           </Input.Wrapper>
           {!!credentialsAccount && (

@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 
-import { RouterOutputs } from "~/utils/api";
+import { type RouterOutputs } from "~/utils/api";
 import { WorkspacesCell } from "~/components/cells/workspaces";
 
 type Data = RouterOutputs["workspace"]["list"];
