@@ -83,6 +83,18 @@ export class ProfileModel extends BaseModel {
   async list() {
     return await this._collection.findMany({
       where: { workspaceId: this._currentProfile?.workspace.id },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
+        role: {
+          select: {
+            title: true,
+          },
+        },
+      },
       orderBy: { firstName: "asc" },
     });
   }

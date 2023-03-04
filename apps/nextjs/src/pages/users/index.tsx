@@ -1,5 +1,24 @@
 import { type NextPage } from "next";
-import { Table, Tabs } from "@mantine/core";
+import {
+  ActionIcon,
+  Avatar,
+  Badge,
+  Group,
+  Menu,
+  ScrollArea,
+  Table,
+  Tabs,
+  Text,
+} from "@mantine/core";
+import { PROFILE_STATUS } from "@prisma/client";
+import {
+  IconDots,
+  IconMessages,
+  IconNote,
+  IconPencil,
+  IconReportAnalytics,
+  IconTrash,
+} from "@tabler/icons-react";
 import { map } from "lodash";
 import { randomCuid, t } from "@acme/shared";
 
@@ -60,31 +79,118 @@ const UsersPage: NextPage = () => {
             <ProfilesCell
               render={({ data }) => {
                 return (
-                  <Table verticalSpacing="xs" highlightOnHover>
-                    <thead>
-                      <tr>
-                        <th className="w-full">Name</th>
-                        <th className="min-w-[300px]">&nbsp;</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {map(data, (item) => {
-                        return (
-                          <tr key={item.id}>
-                            <td>{item.firstName}</td>
-                            <td>
-                              <button
-                                type="button"
-                                onClick={() => onClickRemove(item.id)}
-                              >
-                                Delete
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
+                  <ScrollArea>
+                    <Table verticalSpacing="sm" highlightOnHover>
+                      <thead>
+                        <tr>
+                          <th className="w-full">Name</th>
+                          <th>Role</th>
+                          <th>Status</th>
+                          <th className="min-w-[100px]">&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {map(data, (item) => {
+                          return (
+                            <tr key={item.id}>
+                              <td>
+                                <Group spacing="sm">
+                                  <Avatar
+                                    size={40}
+                                    src={item.image}
+                                    radius={40}
+                                  />
+                                  <div>
+                                    <Text fz="sm" fw={500}>
+                                      {item.firstName}
+                                    </Text>
+                                    <Text fz="xs" c="dimmed">
+                                      {item.user?.email}
+                                    </Text>
+                                  </div>
+                                </Group>
+                              </td>
+                              <td>
+                                <Text>{item.role.title}</Text>
+                              </td>
+                              <td>
+                                {item.status === PROFILE_STATUS.active ? (
+                                  <Badge fullWidth color="green">
+                                    {item.status}
+                                  </Badge>
+                                ) : item.status === PROFILE_STATUS.pending ? (
+                                  <Badge fullWidth color="yellow">
+                                    {item.status}
+                                  </Badge>
+                                ) : (
+                                  <Badge fullWidth color="gray">
+                                    {item.status}
+                                  </Badge>
+                                )}
+                              </td>
+                              <td>
+                                <Group spacing={0} position="right">
+                                  <ActionIcon>
+                                    <IconPencil size="1rem" stroke={1.5} />
+                                  </ActionIcon>
+                                  <Menu
+                                    // transitionProps={{ transition: "pop" }}
+                                    withArrow
+                                    position="bottom-end"
+                                    withinPortal
+                                  >
+                                    <Menu.Target>
+                                      <ActionIcon>
+                                        <IconDots size="1rem" stroke={1.5} />
+                                      </ActionIcon>
+                                    </Menu.Target>
+                                    <Menu.Dropdown>
+                                      <Menu.Item
+                                        icon={
+                                          <IconMessages
+                                            size="1rem"
+                                            stroke={1.5}
+                                          />
+                                        }
+                                      >
+                                        Send message
+                                      </Menu.Item>
+                                      <Menu.Item
+                                        icon={
+                                          <IconNote size="1rem" stroke={1.5} />
+                                        }
+                                      >
+                                        Add note
+                                      </Menu.Item>
+                                      <Menu.Item
+                                        icon={
+                                          <IconReportAnalytics
+                                            size="1rem"
+                                            stroke={1.5}
+                                          />
+                                        }
+                                      >
+                                        Analytics
+                                      </Menu.Item>
+                                      <Menu.Item
+                                        icon={
+                                          <IconTrash size="1rem" stroke={1.5} />
+                                        }
+                                        color="red"
+                                        onClick={() => onClickRemove(item.id)}
+                                      >
+                                        Delete
+                                      </Menu.Item>
+                                    </Menu.Dropdown>
+                                  </Menu>
+                                </Group>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </Table>
+                  </ScrollArea>
                 );
               }}
             />
