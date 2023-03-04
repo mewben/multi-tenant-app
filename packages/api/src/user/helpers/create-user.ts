@@ -10,6 +10,11 @@ interface Props extends WithContext {
 // this function solely creates the user record
 export const createUser = async ({ input, ctx }: Props) => {
   const userModel = new UserModel({ ctx });
+
+  // we return the found user if found
+  const user = await userModel.findByEmail(input.email as string);
+  if (user) return user;
+
   const doc = await userModel.prepareDoc({ input });
   return userModel.insert(doc);
 };

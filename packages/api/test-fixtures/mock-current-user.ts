@@ -1,7 +1,6 @@
-import { getDomainUrl, type CurrentUser } from "@acme/shared";
 import type { IncomingHttpHeaders } from "http";
 import { isUndefined } from "lodash";
-import type { Session } from "next-auth";
+import { getDomainUrl, type CurrentUser, type Session } from "@acme/shared";
 
 import { appRouter } from "~/api/root";
 import { createInnerTRPCContext } from "~/api/trpc";

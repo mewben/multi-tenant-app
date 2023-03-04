@@ -17,14 +17,14 @@ export const processDoc = async ({ input, oldDoc, model }: Props) => {
 
   const upd = getObjectDifference(input, oldDoc) as Partial<User>;
 
-  if (isInsert && upd.email) {
-    // check for duplicate email
-    // we explicitly do this to throw our own error message
-    const foundUser = await model.findByEmail(upd.email);
-    if (foundUser) {
-      return throwError(`tn.error:email.duplicate`);
-    }
-  }
+  // if (isInsert && upd.email) {
+  //   // check for duplicate email
+  //   // we explicitly do this to throw our own error message
+  //   const foundUser = await model.findByEmail(upd.email);
+  //   if (foundUser) {
+  //     return throwError(`tn.error:email.duplicate`);
+  //   }
+  // }
 
   return upd;
 };

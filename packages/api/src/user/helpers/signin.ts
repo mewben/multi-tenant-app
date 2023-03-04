@@ -1,5 +1,5 @@
 import { find, isEmpty } from "lodash";
-import { AUTH_PROVIDERS, PROFILE_STATUS, prisma } from "@acme/db";
+import { AUTH_PROVIDERS, prisma } from "@acme/db";
 import {
   cleanAndValidate,
   getSubdomain,
@@ -72,9 +72,6 @@ export const signin = async ({ input, headers }: Props) => {
       }
     });
     if (!currentProfile) return throwError(`tn.error:workspace.notFound`);
-    // check if profile is active
-    if (currentProfile.status !== PROFILE_STATUS.active)
-      return throwError(`tn.error:workspace.notMember`);
   }
 
   return { id: user.id };

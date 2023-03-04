@@ -8,6 +8,8 @@ interface Options {
 }
 
 export async function sendEmail({ to, subject, text, html }: Options) {
+  if (process.env.ENABLE_MAIL !== "1") return;
+
   console.log(`===> Sending email to: ${to}`);
 
   const isEthereal = process.env.IS_ETHEREAL_EMAIL;

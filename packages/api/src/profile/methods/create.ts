@@ -16,6 +16,11 @@ interface Props extends WithContext {
 }
 // this method creates a workspace user profile
 // with/without invitation
+// accepting invitation flow:
+// accessing the invitation link means that the email is valid
+// if current session is not equal to email,
+// prompt the user to signin using the email
+// can only accept if current session is same as email invitation
 export const create = async ({ input, ctx }: Props) => {
   const oldTx = ctx.tx;
   return await ctx.prisma.$transaction(async (tx) => {
@@ -53,10 +58,10 @@ export const create = async ({ input, ctx }: Props) => {
 
     if (input.willInvite) {
       // send invitation link
-      // <domain>/accept-invitation?email=email&invitationCode=333344
+      // <domain>/accept-invitation?id=profileId&invitationCode=333344
       const invitationLink =
         getDomainUrl({ domain: currentProfile.workspace.domain }) +
-        `/accept-invitation?email=${input.email}&invitationCode=${profile.invitationCode}`;
+        `/accept-invitation?id=${profile.id}&invitationCode=${profile.invitationCode}`;
 
       if (process.env.NODE_ENV !== "production") {
         console.log("--- INVITATION LINK: ", invitationLink);

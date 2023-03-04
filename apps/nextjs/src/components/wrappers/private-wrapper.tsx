@@ -1,7 +1,8 @@
-import { getDomainUrl } from "@acme/shared";
+import { useRouter } from "next/router";
 import { includes, isEmpty } from "lodash";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { getDomainUrl } from "@acme/shared";
+
 import { AdminLayout } from "../layouts/admin-layout";
 import { DefaultLayout } from "../layouts/default-layout";
 
@@ -40,7 +41,7 @@ export const PrivateWrapper = ({
     } else if (isEmpty(session.user.profile)) {
       void router.replace(getDomainUrl() + "/welcome");
     } else if (!isEmpty(session.user.profile)) {
-      return <AdminLayout>{children}</AdminLayout>;
+      return <AdminLayout user={session.user}>{children}</AdminLayout>;
     }
   }
 

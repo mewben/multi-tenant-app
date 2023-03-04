@@ -10,10 +10,10 @@
 import type { IncomingHttpHeaders } from "http";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { type Session } from "next-auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { prisma } from "@acme/db";
+import { PROFILE_STATUS, prisma } from "@acme/db";
+import { type Session } from "@acme/shared";
 
 import { getServerSession } from "./get-session";
 
@@ -123,6 +123,23 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
+const enforceProfileIsActive = t.middleware(({ ctx, next }) => {
+  if (
+    !ctx.session ||
+    !ctx.session.user ||
+    !ctx.session.user.emailVerified ||
+    ctx.session?.user?.profile?.status !== PROFILE_STATUS.active
+  ) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
 /**
  * Protected (authed) procedure
  *
@@ -132,4 +149,5 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const authedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const protectedProcedure = t.procedure.use(enforceProfileIsActive);

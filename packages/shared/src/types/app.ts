@@ -33,6 +33,7 @@ export interface CurrentUser {
 export interface CurrentProfile {
   id: string;
   firstName: string;
+  status: string;
   workspace: CurrentWorkspace;
   role: CurrentRole;
 }

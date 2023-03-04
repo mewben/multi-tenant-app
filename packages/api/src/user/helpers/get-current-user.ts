@@ -1,5 +1,5 @@
 import { omit } from "lodash";
-import { CurrentUser, getSubdomain, type WithContext } from "@acme/shared";
+import { getSubdomain, type CurrentUser, type WithContext } from "@acme/shared";
 
 interface Props extends WithContext {
   userId?: string;
@@ -31,6 +31,7 @@ export const getCurrentUser = async ({
         select: {
           id: true,
           firstName: true,
+          status: true,
           workspace: {
             select: {
               id: true,

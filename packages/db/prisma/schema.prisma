@@ -119,7 +119,7 @@ model Profile {
     emailAddresses String[] @default([])
     image         String?
     // ---
-    invitationCode String?        @unique
+    invitationCode String?        
     invitedBy      String?        @db.Uuid
     // ---
     workspaceId    String         @db.Uuid

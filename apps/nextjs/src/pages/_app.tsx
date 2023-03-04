@@ -21,6 +21,7 @@ const publicPaths = [
   "/verify-user",
   "/forgot-password",
   "/reset-password",
+  "/accept-invitation",
 ];
 
 const MyApp: AppType<{ session: Session | null }> = ({

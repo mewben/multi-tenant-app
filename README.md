@@ -7,3 +7,9 @@
 ## Synced fork commit
 
 4c0ec6a - feb 26, 20203
+
+### Inviting People
+
+- Admin create profile inviting via email
+- Person clicks the invite link
+-

@@ -20,7 +20,7 @@ describe("auth.signin [credentials]", () => {
       input: { email: signupInput.email, password: signupInput.password },
       headers: { host: getDomainUrl({ includeProtocol: false }) },
     });
-    expect(response.id).not.toBeUndefined();
+    expect(response.id).toBeDefined();
   });
 
   it("should validate input", async () => {
@@ -88,7 +88,9 @@ describe("auth.signin [credentials]", () => {
     ).rejects.toThrowError("tn.error:workspace.notFound");
   });
 
-  it("should not login if profile is not active", async () => {
+  // we use protectedProcedure for active profile
+  // authedProcedure if active profile is not required
+  it("should still login if profile is not active", async () => {
     const user1 = await fixtures.user.create({});
     const user2 = await fixtures.user.create({ input: { password: "111111" } });
 
@@ -101,16 +103,15 @@ describe("auth.signin [credentials]", () => {
     });
 
     // try signing in user2 to workspace1 without accept invite
-    await expect(
-      signin({
-        input: { email: user2?.email as string, password: "111111" },
-        headers: {
-          host: getDomainUrl({
-            domain: user1?.profile?.workspace?.domain,
-            includeProtocol: false,
-          }),
-        },
-      }),
-    ).rejects.toThrowError("tn.error:workspace.notMember");
+    const response = await signin({
+      input: { email: user2?.email as string, password: "111111" },
+      headers: {
+        host: getDomainUrl({
+          domain: user1?.profile?.workspace?.domain,
+          includeProtocol: false,
+        }),
+      },
+    });
+    expect(response.id).toBeDefined();
   });
 });

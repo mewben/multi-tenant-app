@@ -1,11 +1,15 @@
-import { signinSchema, t, type SigninInput } from "@acme/shared";
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import { signinSchema, t, type SigninInput } from "@acme/shared";
 
+import { showNotification } from "~/utils/helpers/show-notification";
 import { SubmitButton } from "~/components/buttons";
 import { Form, PasswordField, TextField } from "~/components/form";
-import { showNotification } from "~/utils/helpers/show-notification";
 
 export const SigninForm = () => {
+  const router = useRouter();
+  const redirect = router.query.redirect as string;
+
   const onSubmit = async (formData: SigninInput) => {
     const response = await signIn("credentials", {
       ...formData,
@@ -16,7 +20,13 @@ export const SigninForm = () => {
         message: response.error,
       });
     } else {
-      window.location.replace("/");
+      // get redirect
+      let redirectUrl = "/";
+      if (redirect && redirect.startsWith("/")) {
+        redirectUrl = redirect;
+      }
+
+      window.location.replace(redirectUrl);
     }
   };
 
