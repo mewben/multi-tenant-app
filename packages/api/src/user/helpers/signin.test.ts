@@ -78,8 +78,39 @@ describe("auth.signin [credentials]", () => {
     await expect(
       signin({
         input: { email: user1?.email as string, password: "111111" },
-        headers: { host: getDomainUrl({ domain: workspace2?.domain }) },
+        headers: {
+          host: getDomainUrl({
+            domain: workspace2?.domain,
+            includeProtocol: false,
+          }),
+        },
       }),
     ).rejects.toThrowError("tn.error:workspace.notFound");
+  });
+
+  it("should not login if profile is not active", async () => {
+    const user1 = await fixtures.user.create({});
+    const user2 = await fixtures.user.create({ input: { password: "111111" } });
+
+    const { ctx } = await fixtures.mockCurrentUser({ user: user1 });
+
+    // invite user2 to workspace1
+    await fixtures.profile.create({
+      input: { email: user2?.email as string, willInvite: true },
+      ctx,
+    });
+
+    // try signing in user2 to workspace1 without accept invite
+    await expect(
+      signin({
+        input: { email: user2?.email as string, password: "111111" },
+        headers: {
+          host: getDomainUrl({
+            domain: user1?.profile?.workspace?.domain,
+            includeProtocol: false,
+          }),
+        },
+      }),
+    ).rejects.toThrowError("tn.error:workspace.notMember");
   });
 });

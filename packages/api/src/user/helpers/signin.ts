@@ -1,5 +1,5 @@
 import { find, isEmpty } from "lodash";
-import { AUTH_PROVIDERS, prisma } from "@acme/db";
+import { AUTH_PROVIDERS, PROFILE_STATUS, prisma } from "@acme/db";
 import {
   cleanAndValidate,
   getSubdomain,
@@ -36,6 +36,7 @@ export const signin = async ({ input, headers }: Props) => {
       },
       profiles: {
         select: {
+          status: true,
           workspace: {
             select: {
               domain: true,
@@ -65,12 +66,15 @@ export const signin = async ({ input, headers }: Props) => {
   // checks if the user is present in the current workspace
   const currentDomain = getSubdomain(headers.host);
   if (currentDomain !== process.env.NEXT_PUBLIC_APP_SUBDOMAIN) {
-    const workspace = find(user.profiles, (profile) => {
+    const currentProfile = find(user.profiles, (profile) => {
       if (profile.workspace.domain === currentDomain) {
-        return true;
+        return profile;
       }
     });
-    if (!workspace) return throwError(`tn.error:workspace.notFound`);
+    if (!currentProfile) return throwError(`tn.error:workspace.notFound`);
+    // check if profile is active
+    if (currentProfile.status !== PROFILE_STATUS.active)
+      return throwError(`tn.error:workspace.notMember`);
   }
 
   return { id: user.id };
