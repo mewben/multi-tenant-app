@@ -134,7 +134,7 @@ const UsersPage: NextPage = () => {
                                     <IconPencil size="1rem" stroke={1.5} />
                                   </ActionIcon>
                                   <Menu
-                                    // transitionProps={{ transition: "pop" }}
+                                    transitionProps={{ transition: "pop" }}
                                     withArrow
                                     position="bottom-end"
                                     withinPortal

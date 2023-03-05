@@ -1,6 +1,6 @@
 import type { AppType } from "next/app";
 import { MantineProvider } from "@mantine/core";
-import { NotificationsProvider } from "@mantine/notifications";
+import { Notifications } from "@mantine/notifications";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
@@ -39,15 +39,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <CheckWorkspaceWrapper>
           <I18nProvider>
             <PopupProvider>
-              <NotificationsProvider
+              <Notifications
                 limit={3}
                 autoClose={+env.NEXT_PUBLIC_NOTIF_AUTO_CLOSE}
                 className="notifications-provider"
-              >
-                <PrivateWrapper to="/signin" excludePaths={publicPaths}>
-                  <Component {...pageProps} />
-                </PrivateWrapper>
-              </NotificationsProvider>
+              />
+              <PrivateWrapper to="/signin" excludePaths={publicPaths}>
+                <Component {...pageProps} />
+              </PrivateWrapper>
             </PopupProvider>
           </I18nProvider>
         </CheckWorkspaceWrapper>
