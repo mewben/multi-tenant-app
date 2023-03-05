@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { isEmpty } from "lodash";
 import { AUTH_PROVIDERS } from "@acme/db";
+import { logger } from "@acme/logger";
 import {
   getDomainUrl,
   randomCuid,
@@ -64,9 +65,7 @@ export const forgotPassword = async ({ input, ctx }: Props) => {
     getDomainUrl() +
     `/reset-password?email=${doc.email}&resetToken=${updated.resetToken}`;
 
-  if (isDev) {
-    console.log("--- RESET PASSWORD LINK: ", resetPasswordLink);
-  }
+  logger.debug(`--- RESET PASSWORD LINK: ${resetPasswordLink}`);
 
   void sendEmail({
     to: input.email,

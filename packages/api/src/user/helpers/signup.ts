@@ -12,7 +12,7 @@ import {
 
 import { createAccount } from "~/api/account/helpers/create-account";
 import { sendEmail } from "~/api/utils/send-email";
-import { createUser } from "./create-user";
+import { findOrCreateUser } from "./find-or-create-user";
 
 interface Props {
   input: SignupInput;
@@ -31,7 +31,7 @@ export const signup = async ({ input }: Props) => {
     };
 
     // create user
-    const user = await createUser({
+    const user = await findOrCreateUser({
       input: pick(data, "name", "email", "image"),
       ctx,
     });

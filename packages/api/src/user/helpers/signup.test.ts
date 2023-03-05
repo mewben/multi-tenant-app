@@ -54,7 +54,7 @@ describe("auth.signup [credentials]", () => {
     const cases = [
       {
         input: { ...input },
-        err: `tn.error:email.duplicate`,
+        err: `tn.error:account.duplicate`,
       },
       {
         input: { ...input, name: "" },

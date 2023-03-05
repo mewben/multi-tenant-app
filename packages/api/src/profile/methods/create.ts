@@ -1,3 +1,4 @@
+import { logger } from "@acme/logger";
 import {
   getDomainUrl,
   randomCuid,
@@ -6,7 +7,7 @@ import {
 } from "@acme/shared";
 
 import { createProfile } from "~/api/profile/helpers/create-profile";
-import { createUser } from "~/api/user/helpers/create-user";
+import { findOrCreateUser } from "~/api/user/helpers/find-or-create-user";
 import { UserModel } from "~/api/user/model";
 import { getCurrentProfileFromContext } from "~/api/utils/get-current-user-from-context";
 import { sendEmail } from "~/api/utils/send-email";
@@ -32,7 +33,7 @@ export const create = async ({ input, ctx }: Props) => {
     const userModel = new UserModel({ ctx });
     let foundUser = await userModel.findByEmail(input.email);
     if (!foundUser) {
-      foundUser = await createUser({
+      foundUser = await findOrCreateUser({
         input: {
           name: input.firstName,
           email: input.email,
@@ -63,9 +64,7 @@ export const create = async ({ input, ctx }: Props) => {
         getDomainUrl({ domain: currentProfile.workspace.domain }) +
         `/accept-invitation?id=${profile.id}&invitationCode=${profile.invitationCode}`;
 
-      if (process.env.NODE_ENV !== "production") {
-        console.log("--- INVITATION LINK: ", invitationLink);
-      }
+      logger.debug(`--- INVITATION LINK: ${invitationLink}`);
 
       void sendEmail({
         to: input.email,

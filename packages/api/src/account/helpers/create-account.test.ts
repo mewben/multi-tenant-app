@@ -2,14 +2,14 @@ import { faker } from "@faker-js/faker";
 import { AUTH_PROVIDERS, PROVIDER_TYPES } from "@acme/db";
 
 import fixtures from "~/api/fixtures";
-import { createUser } from "~/api/user/helpers/create-user";
+import { findOrCreateUser } from "~/api/user/helpers/find-or-create-user";
 import { createAccount } from "./create-account";
 
 describe("account.model.create", () => {
   it("should create an account", async () => {
     const { ctx } = await fixtures.mockCurrentUser();
 
-    const user = await createUser({
+    const user = await findOrCreateUser({
       input: {
         name: faker.name.firstName(),
         email: faker.internet.email(),
@@ -36,7 +36,7 @@ describe("account.model.create", () => {
 
   it("should throw duplicate account", async () => {
     const { ctx } = await fixtures.mockCurrentUser();
-    const user = await createUser({
+    const user = await findOrCreateUser({
       input: {
         name: faker.name.firstName(),
         email: faker.internet.email(),

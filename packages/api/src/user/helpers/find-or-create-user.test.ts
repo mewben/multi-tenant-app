@@ -3,7 +3,7 @@ import { pick } from "lodash";
 
 import fixtures from "~/api/fixtures";
 // calling methods directly means that the input has been validated
-import { createUser } from "./create-user";
+import { findOrCreateUser } from "./find-or-create-user";
 
 describe("user.model.create", () => {
   it("should create a user", async () => {
@@ -14,7 +14,7 @@ describe("user.model.create", () => {
       image: faker.random.alphaNumeric(8),
     };
 
-    const user = await createUser({ input, ctx });
+    const user = await findOrCreateUser({ input, ctx });
 
     expect(user.id).not.toBeNull();
     expect(user.createdAt).not.toBeNull();
@@ -25,13 +25,14 @@ describe("user.model.create", () => {
     });
   });
 
-  it("should throw duplicate email", async () => {
+  it("should return the record if found", async () => {
     const { ctx } = await fixtures.mockCurrentUser();
     const email = faker.internet.email();
-    await createUser({ input: { email }, ctx });
+    const user = await findOrCreateUser({ input: { email }, ctx });
 
-    await expect(createUser({ input: { email }, ctx })).rejects.toThrowError(
-      `tn.error:email.duplicate`,
-    );
+    expect(user.id).not.toBeNull();
+    expect(user.createdAt).not.toBeNull();
+    expect(user.updatedAt).not.toBeNull();
+    expect(user.email).toEqual(email);
   });
 });

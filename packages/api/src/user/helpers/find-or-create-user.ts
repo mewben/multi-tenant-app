@@ -7,8 +7,7 @@ interface Props extends WithContext {
   input: Partial<User>;
 }
 
-// this function solely creates the user record
-export const createUser = async ({ input, ctx }: Props) => {
+export const findOrCreateUser = async ({ input, ctx }: Props) => {
   const userModel = new UserModel({ ctx });
 
   // we return the found user if found

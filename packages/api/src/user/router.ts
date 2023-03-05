@@ -7,6 +7,7 @@ import {
 } from "@acme/shared";
 
 import {
+  authedProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
@@ -21,7 +22,7 @@ import {
 
 export const userRouter = createTRPCRouter({
   verify: publicProcedure.input(verifyUserSchema).mutation(verify),
-  onboard: protectedProcedure.input(onboardingSchema).mutation(onboard),
+  onboard: authedProcedure.input(onboardingSchema).mutation(onboard),
   forgotPassword: publicProcedure
     .input(forgotPasswordSchema)
     .mutation(forgotPassword),
