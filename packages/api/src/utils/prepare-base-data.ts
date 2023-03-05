@@ -1,5 +1,4 @@
-import type { Context } from "next-auth";
-import { throwError } from "@acme/shared";
+import { throwError, type Context } from "@acme/shared";
 
 import { getCurrentProfileFromContext } from "./get-current-user-from-context";
 

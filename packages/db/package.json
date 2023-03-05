@@ -15,7 +15,8 @@
     "with-test-env": "dotenv -e ../../.env.test.local --"
   },
   "dependencies": {
-    "@prisma/client": "^4.10.1"
+    "@prisma/client": "^4.10.1",
+    "@acme/logger": "*"
   },
   "devDependencies": {
     "dotenv-cli": "^7.0.0",

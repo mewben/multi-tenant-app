@@ -20,6 +20,7 @@
     "@acme/api": "*",
     "@acme/db": "*",
     "@acme/shared": "*",
+    "@acme/logger": "*",
     "@acme/tailwind-config": "*",
     "@mantine/core": "5.10.3",
     "@mantine/form": "5.10.3",

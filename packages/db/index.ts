@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { logger } from "@acme/logger";
+import { emitLogLevels, handlePrismaLogging } from "@acme/logger/logger";
 
 export * from "@prisma/client";
 
@@ -9,8 +11,14 @@ export const prisma =
   new PrismaClient({
     log:
       process.env.NODE_ENV === "development"
-        ? ["query", "error", "warn"]
-        : ["error"],
+        ? emitLogLevels(["query", "error", "warn"])
+        : emitLogLevels(["error"]),
   });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+
+handlePrismaLogging({
+  db: prisma,
+  logger,
+  logLevels: ["info", "warn", "error"],
+});

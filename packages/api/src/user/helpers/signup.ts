@@ -1,6 +1,7 @@
 import { AUTH_PROVIDERS, PROVIDER_TYPES } from "@prisma/client";
 import { pick } from "lodash";
 import { prisma } from "@acme/db";
+import { logger } from "@acme/logger";
 import {
   cleanAndValidate,
   getDomainUrl,
@@ -54,7 +55,7 @@ export const signup = async ({ input }: Props) => {
       `/verify-user?userId=${user.id}&verificationCode=${account.verificationCode}`;
 
     if (process.env.NODE_ENV !== "production") {
-      console.log("--- VERIFICATION LINK: ", verificationLink);
+      logger.debug(`--- VERIFICATION LINK: ${verificationLink}`);
     }
     void sendEmail({
       to: user.email as string,
