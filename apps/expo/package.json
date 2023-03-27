@@ -1,7 +1,7 @@
 {
   "name": "@acme/expo",
   "version": "0.1.0",
-  "main": "index.ts",
+  "main": "index.tsx",
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start --ios",
@@ -40,6 +40,7 @@
     "@expo/config-plugins": "^6.0.0",
     "@types/react": "^18.0.27",
     "@types/react-native": "~0.70.8",
+    "@types/webpack-env": "^1.18.0",
     "eslint": "^8.34.0",
     "eslint-config-acme": "0.0.0",
     "postcss": "^8.4.21",
