@@ -26,6 +26,7 @@ import { api } from "~/utils/api";
 import { showNotification } from "~/utils/helpers/show-notification";
 import { Button } from "~/components/buttons";
 import { ProfilesCell } from "~/components/cells/profiles";
+import { Header } from "~/components/layouts/header";
 import { usePopupContext } from "~/components/popup";
 import { CreateUserProfileForm } from "~/components/scenes/user/create-user-profile-form";
 
@@ -63,6 +64,12 @@ const UsersPage: NextPage = () => {
 
   return (
     <>
+      <Header>
+        <div>Users</div>
+        <div>
+          <Button onClick={onClickCreate}>Create new user</Button>
+        </div>
+      </Header>
       <div className="box mt-4 mb-2 flex items-center justify-between">
         <span className="title text-2xl font-bold">Users</span>
         <div>

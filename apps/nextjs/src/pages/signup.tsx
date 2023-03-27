@@ -1,10 +1,11 @@
-import { getDomainUrl, t } from "@acme/shared";
-import { Divider } from "@mantine/core";
-import { IconBrandDiscord } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Divider, ScrollArea } from "@mantine/core";
+import { IconBrandDiscord } from "@tabler/icons-react";
+import { getDomainUrl, t } from "@acme/shared";
+
 import { Button } from "~/components/buttons";
 import { Logo } from "~/components/others/logo";
 import { SignupForm } from "~/components/scenes/auth/signup-form";
@@ -35,32 +36,34 @@ const Signup: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-[600px] flex-auto flex-col justify-center p-24">
-        <div className="space-y-12">
-          <Logo />
-          <div>
-            <h2 className="mb-0">{t("auth.signup.title")}</h2>
-            <div className="text-sm text-slate-600">
-              {t(`auth.Already have an account? `)}
-              <Link href="/signin">Signin instead</Link>
+      <div className="flex w-[600px] flex-auto flex-col justify-center">
+        <ScrollArea>
+          <div className="space-y-12 p-24">
+            <Logo />
+            <div>
+              <h2 className="mb-0">{t("auth.signup.title")}</h2>
+              <div className="text-sm text-slate-600">
+                {t(`auth.Already have an account? `)}
+                <Link href="/signin">Signin instead</Link>
+              </div>
             </div>
+            <div>
+              <Button
+                component={Link}
+                href={discordLink}
+                leftIcon={<IconBrandDiscord />}
+                variant="outline"
+                color="dark"
+                fullWidth
+                className="btn-link"
+              >
+                {t("btn.Continue with Discord")}
+              </Button>
+            </div>
+            <Divider my="xs" label="or" labelPosition="center" />
+            <SignupForm />
           </div>
-          <div>
-            <Button
-              component={Link}
-              href={discordLink}
-              leftIcon={<IconBrandDiscord />}
-              variant="outline"
-              color="dark"
-              fullWidth
-              className="btn-link"
-            >
-              {t("btn.Continue with Discord")}
-            </Button>
-          </div>
-          <Divider my="xs" label="or" labelPosition="center" />
-          <SignupForm />
-        </div>
+        </ScrollArea>
       </div>
     </>
   );

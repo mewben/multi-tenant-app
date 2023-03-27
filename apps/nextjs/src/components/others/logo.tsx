@@ -1,9 +1,8 @@
-import { Flex } from "@mantine/core";
 import { IconBracketsOff } from "@tabler/icons-react";
 
 export const Logo = () => {
   return (
-    <Flex>
+    <div className="flex items-center">
       <div className="text-pink-500">
         <IconBracketsOff />
       </div>
@@ -13,6 +12,6 @@ export const Logo = () => {
           TECH
         </span>
       </div>
-    </Flex>
+    </div>
   );
 };

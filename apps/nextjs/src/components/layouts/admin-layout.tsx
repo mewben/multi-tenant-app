@@ -10,6 +10,7 @@ import {
 import { t, type CurrentUser, type WithChildren } from "@acme/shared";
 
 import { Logo } from "../others/logo";
+import { MainSidebar } from "./main-sidebar";
 
 const Sidebar = () => {
   return (
@@ -71,9 +72,7 @@ export const AdminLayout = ({ user, children }: Props) => {
 
     return (
       <>
-        <div className="">
-          <Sidebar />
-        </div>
+        <MainSidebar />
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="relative flex grow flex-col overflow-auto">
             {children}

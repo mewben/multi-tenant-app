@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  background-color: "inherit";
+}
+
 html,
 body {
   @apply m-0 w-full overflow-hidden p-0;

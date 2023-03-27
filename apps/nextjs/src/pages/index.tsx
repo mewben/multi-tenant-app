@@ -2,7 +2,10 @@
 import type { NextPage } from "next";
 // import Head from "next/head";
 import Link from "next/link";
+import { Anchor, ScrollArea } from "@mantine/core";
 import { useSession } from "next-auth/react";
+
+import { Header } from "~/components/layouts/header";
 
 // import { signIn, signOut } from "next-auth/react";
 
@@ -13,14 +16,51 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <section>
-        <Link href="/users">Users</Link>
-      </section>
-      <Link href="/signin">Sign In</Link>
-      <Link href="/signout">Sign out</Link>
+      <Header>
+        <Anchor component={Link} href="/users">
+          Users
+        </Anchor>
+      </Header>
+      <div className="flex h-[45px] flex-shrink-0 items-center justify-between border-0 border-b border-solid border-b-gray-100 py-1 pl-8 pr-7">
+        Filters here
+      </div>
+      <div className="relative flex h-full w-full flex-grow flex-col items-stretch overflow-hidden">
+        <div className="overflow-auto whitespace-pre-wrap">
+          <Link href="/signin">Sign In</Link>
+          <Link href="/signout">Sign out</Link>
 
-      <div>
-        <pre>{JSON.stringify(sessionData)}</pre>
+          <div>
+            <pre>{JSON.stringify(sessionData)}</pre>
+          </div>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+          <h1>Home</h1>
+        </div>
       </div>
     </>
   );
