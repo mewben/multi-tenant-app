@@ -1,6 +1,7 @@
 import { createWorkspaceSchema } from "@acme/shared";
 
 import {
+  authedProcedure,
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
@@ -10,5 +11,5 @@ import { check, create, list } from "./methods";
 export const workspaceRouter = createTRPCRouter({
   check: publicProcedure.query(check),
   create: protectedProcedure.input(createWorkspaceSchema).mutation(create),
-  list: protectedProcedure.query(list),
+  list: authedProcedure.query(list),
 });
