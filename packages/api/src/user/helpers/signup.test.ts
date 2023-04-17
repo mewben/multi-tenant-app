@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { pick } from "lodash";
+
 import { AUTH_PROVIDERS, prisma } from "@acme/db";
 
 import { signup } from "./signup";
@@ -81,5 +82,15 @@ describe("auth.signup [credentials]", () => {
     for (const c of cases) {
       await expect(signup({ input: c.input })).rejects.toThrowError(c.err);
     }
+  });
+
+  it("should connect with oauth account if same email", () => {
+    // todo
+  });
+});
+
+describe("auth.signup [oauth]", () => {
+  it("should connect with credentials account if same email", () => {
+    // todo
   });
 });

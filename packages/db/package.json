@@ -6,20 +6,21 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "db:generate": "prisma generate",
-    "db:migrate-dev": "prisma migrate dev",
-    "db:push": "prisma db push --skip-generate",
+    "db:generate": "pnpm with-env prisma generate",
+    "db:migrate-dev": "pnpm with-env prisma migrate dev",
+    "db:push": "pnpm with-env prisma db push --skip-generate",
     "db:reset-test": "pnpm with-test-env prisma db push --force-reset --accept-data-loss",
-    "dev": "prisma studio --port 5556",
+    "dev": "pnpm with-env prisma studio --port 5556",
     "with-env": "dotenv -e ../../.env --",
     "with-test-env": "dotenv -e ../../.env.test.local --"
   },
   "dependencies": {
-    "@prisma/client": "^4.11.0",
+    "@prisma/client": "^4.12.0",
     "@acme/logger": "*"
   },
   "devDependencies": {
-    "prisma": "^4.11.0",
-    "typescript": "^5.0.2"
+    "dotenv-cli": "^7.2.1",
+    "prisma": "^4.12.0",
+    "typescript": "^5.0.4"
   }
 }
