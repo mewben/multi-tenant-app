@@ -7,9 +7,11 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type ISODateString, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
+
 import { PROVIDER_TYPES, prisma } from "@acme/db";
 import { type CurrentUser, type SigninInput } from "@acme/shared";
 
+import { env } from "../env.mjs";
 import { getCurrentUser } from "./user/helpers/get-current-user";
 import { signin } from "./user/helpers/signin";
 import { signup } from "./user/helpers/signup";
@@ -58,8 +60,8 @@ export const getAuthOptions = (
     },
     providers: [
       DiscordProvider({
-        clientId: process.env.DISCORD_CLIENT_ID as string,
-        clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+        clientId: env.DISCORD_CLIENT_ID,
+        clientSecret: env.DISCORD_CLIENT_SECRET,
       }),
       CredentialsProvider({
         async authorize(credentials, req) {
