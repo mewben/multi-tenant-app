@@ -47,4 +47,5 @@ export const env = createEnv({
       ? process.env.NEXT_PUBLIC_NOTIF_AUTO_CLOSE
       : "4000",
   },
+  skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
 });

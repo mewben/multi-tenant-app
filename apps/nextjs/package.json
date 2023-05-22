@@ -21,7 +21,6 @@
     "@acme/db": "*",
     "@acme/shared": "*",
     "@acme/logger": "*",
-    "@acme/tailwind-config": "*",
     "@mantine/core": "6.0.0",
     "@mantine/form": "6.0.0",
     "@mantine/hooks": "6.0.0",
@@ -50,6 +49,7 @@
   },
   "devDependencies": {
     "@acme/eslint-config": "*",
+    "@acme/tailwind-config": "*",
     "@emotion/react": "11.10.5",
     "@emotion/server": "11.10.0",
     "@playwright/test": "1.30.0",
