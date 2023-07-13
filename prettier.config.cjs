@@ -30,13 +30,8 @@ const config = {
     "^~/(.*)$",
     "^[./]",
   ],
-  importOrderSeparation: false,
-  importOrderSortSpecifiers: true,
-  importOrderBuiltinModulesToTop: true,
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-  importOrderMergeDuplicateImports: true,
-  importOrderCombineTypeAndValueImports: true,
-  organizeImportsSkipDestructiveCodeActions: true,
+  importOrderTypeScriptVersion: "5.0.4",
 };
 
 module.exports = config;

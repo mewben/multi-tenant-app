@@ -7,5 +7,5 @@
       "~/api/*": ["./src/*"]
     }
   },
-  "include": ["src", "test-fixtures", "index.ts", "transformer.ts"]
+  "include": ["src", "test-fixtures", "index.ts"]
 }
